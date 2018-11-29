@@ -26,9 +26,10 @@ class MapTableViewCell: UITableViewCell {
                 return
             }
             
-            let region = MKCoordinateRegion(center: location!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
+            // 1 degree = 111 km
+            let region = MKCoordinateRegion(center: location!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.0045, longitudeDelta: 0.0045)) // width: 500m
             mapView.setRegion(region, animated: false)
-            mapView.setCenter(location!.coordinate, animated: false)
+//            mapView.setCenter(location!.coordinate, animated: false)
             annotation.coordinate = location!.coordinate
             
             

@@ -19,7 +19,7 @@ class LocationManageController: PulleyViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(segue.identifier)
+        
     }
     
     @IBAction func onTapCancel(_ sender: Any) {

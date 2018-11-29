@@ -9,36 +9,38 @@
 import UIKit
 import CoreLocation
 import MapKit
-//import Pulley
 
 protocol LocationControllerDelegate: NSObjectProtocol {
-    func dateFormVC(didSelectDate selectedDate: Date?)
+    func locationControllerVC(_ vc: LocationController,  didSelect location: CLLocation)
 }
 
 
 class LocationController: UIViewController {
     
-    var location: CLLocation? {
-        didSet {
-            guard let _ = location else {
-                return
-            }
-            
-            let region = MKCoordinateRegion(center: location!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))
-            mapView.setRegion(region, animated: false)
-            mapView.setCenter(location!.coordinate, animated: false)
-            
-            let annotation: MKPointAnnotation = MKPointAnnotation()
-            annotation.coordinate = location!.coordinate
-        }
-    }
+    var location: CLLocation?
+    
+    var coordinate: CLLocationCoordinate2D?
     
     @IBOutlet weak var mapView: MKMapView!
+    fileprivate var annotation = MKPointAnnotation()
+    
     weak var delegate: LocationControllerDelegate?
+    
+    private var pullupViewController: MapDrawerViewController {
+        let currentPullUpController = children.filter({ $0 is MapDrawerViewController }).first as? MapDrawerViewController
+        let pullUpController = currentPullUpController ?? R.storyboard.main.mapDrawerVC()
+        return pullUpController!
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let _ = location {
+            zoom(to: location!.coordinate)
+        }
+        
+        addPullUpController()
+        mapView.addAnnotation(annotation)
     }
     
     @IBAction func onTapCancel(_ sender: Any) {
@@ -48,9 +50,32 @@ class LocationController: UIViewController {
     }
     
     @IBAction func onTapDone(_ sender: Any) {
+        
+        if let coordinate = coordinate {
+            delegate?.locationControllerVC(self, didSelect: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        }
+        
         dismiss(animated: true) {
             
         }
+    }
+    
+    private func addPullUpController() {
+        let pullVC = self.pullupViewController
+        _ = pullVC.view
+        addPullUpController(pullVC,
+                            initialStickyPointOffset: pullVC.initialPointOffset,
+                            animated: true)
+    }
+    
+    func zoom(to coordinate: CLLocationCoordinate2D) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.0045, longitudeDelta: 0.0045)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        
+        mapView.setRegion(region, animated: true)
+        
+        annotation.coordinate = coordinate
+        self.coordinate = coordinate
     }
 }
 

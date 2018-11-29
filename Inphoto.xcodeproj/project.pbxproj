@@ -37,6 +37,7 @@
 		35579D9B21AEFAE100E096AD /* credits.py in Resources */ = {isa = PBXBuildFile; fileRef = 35579D9A21AEFAE100E096AD /* credits.py */; };
 		35579D9D21AFAFA600E096AD /* MetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35579D9C21AFAFA600E096AD /* MetadataViewController.swift */; };
 		35579D9F21AFC6CA00E096AD /* MetadataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35579D9E21AFC6CA00E096AD /* MetadataCell.swift */; };
+		35579DA121AFD6D900E096AD /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35579DA021AFD6D900E096AD /* Address.swift */; };
 		357F9F3C21ABFAC100325212 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 357F9F3B21ABFAC100325212 /* PhotosUI.framework */; };
 		357F9F3E21ABFAC100325212 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 357F9F3D21ABFAC100325212 /* Photos.framework */; };
 		357F9F4121ABFAC100325212 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F4021ABFAC100325212 /* PhotoEditingViewController.swift */; };
@@ -147,6 +148,7 @@
 		35579D9A21AEFAE100E096AD /* credits.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = credits.py; sourceTree = SOURCE_ROOT; };
 		35579D9C21AFAFA600E096AD /* MetadataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewController.swift; sourceTree = "<group>"; };
 		35579D9E21AFC6CA00E096AD /* MetadataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataCell.swift; sourceTree = "<group>"; };
+		35579DA021AFD6D900E096AD /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		357F9F3A21ABFAC000325212 /* inphotoExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = inphotoExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		357F9F3B21ABFAC100325212 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		357F9F3D21ABFAC100325212 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -338,6 +340,7 @@
 				3547C44521AA6BD50038BAA3 /* Album.swift */,
 				357F9F5121ACDBAC00325212 /* PhotoInfo.swift */,
 				35E23D6821AEEF57000C5582 /* ImageFile.swift */,
+				35579DA021AFD6D900E096AD /* Address.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				35E23D9921AEF687000C5582 /* AppInfo.swift in Sources */,
 				3547C45C21AA6BE80038BAA3 /* PhotoGridViewController.swift in Sources */,
 				3547C46921AA71EE0038BAA3 /* R.generated.swift in Sources */,
+				35579DA121AFD6D900E096AD /* Address.swift in Sources */,
 				35E23D6B21AEF09A000C5582 /* Constant.swift in Sources */,
 				35E23D7421AEF316000C5582 /* AboutTableViewController.swift in Sources */,
 				3547C44621AA6BD50038BAA3 /* AssetManager.swift in Sources */,

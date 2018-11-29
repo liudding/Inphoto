@@ -7,133 +7,215 @@
 //
 
 import UIKit
-import Pulley
+import PullUpController
+import CoreLocation
+import MapKit
 
-class MapDrawerViewController: UIViewController {
+class MapDrawerViewController: PullUpController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var gripperView: UIView!
+    fileprivate let searchCompleter = MKLocalSearchCompleter()
+    fileprivate var completerResults = [MKLocalSearchCompletion]()
+    fileprivate var localSearch: MKLocalSearch? {
+        willSet {
+            // Clear the results and cancel the currently running local search before starting a new search.
+            places = nil
+            localSearch?.cancel()
+        }
+    }
+    fileprivate var places: [MKMapItem]? {
+        didSet {
+            tableView.reloadData()
+//            viewAllButton.isEnabled = places != nil
+        }
+    }
+    fileprivate var recentAddress: [Address] = []
+    
+    fileprivate var isSearchMode = false
+    
+    var initialPointOffset: CGFloat {
+        return pullUpControllerPreferredSize.height
+    }
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        gripperView.layer.cornerRadius = 2.5
+        searchCompleter.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if #available(iOS 10.0, *)
-        {
-            let feedbackGenerator = UISelectionFeedbackGenerator()
-            self.pulleyViewController?.feedbackGenerator = feedbackGenerator
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // The bounce here is optional, but it's done automatically after appearance as a demonstration.
-        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(bounceDrawer), userInfo: nil, repeats: false)
     }
     
-    @objc fileprivate func bounceDrawer() {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        // We can 'bounce' the drawer to show users that the drawer needs their attention. There are optional parameters you can pass this method to control the bounce height and speed.
-        self.pulleyViewController?.bounceDrawer(bounceHeight: 10)
+//        view.layer.cornerRadius = 12
+//        view.clipsToBounds = true
     }
+    
+    
+    override func pullUpControllerDidDrag(to point: CGFloat) {
+        //        print("did drag to \(point)")
+        view.endEditing(true)
+    }
+    
+    // MARK: - PullUpController
+    
+    override var pullUpControllerPreferredSize: CGSize {
+        return CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
+                      height: 66)
+    }
+    
+    override var pullUpControllerPreferredLandscapeFrame: CGRect {
+        return CGRect(x: 10, y: 10, width: 300, height: UIScreen.main.bounds.height - 20)
+    }
+    
+    override var pullUpControllerMiddleStickyPoints: [CGFloat] {
+        return [66, UIScreen.main.bounds.height * 1/3, UIScreen.main.bounds.height - 64 - 50]
+    }
+    
+    override var pullUpControllerBounceOffset: CGFloat {
+        return 20
+    }
+    
+//    override func pullUpControllerAnimate(action: PullUpController.Action,
+//                                          withDuration duration: TimeInterval,
+//                                          animations: @escaping () -> Void,
+//                                          completion: ((Bool) -> Void)?) {
+//        switch action {
+//        case .move:
+//            UIView.animate(withDuration: 0.3,
+//                           delay: 0,
+//                           usingSpringWithDamping: 0.7,
+//                           initialSpringVelocity: 0,
+//                           options: .curveEaseInOut,
+//                           animations: animations,
+//                           completion: completion)
+//        default:
+//            UIView.animate(withDuration: 0.3,
+//                           animations: animations,
+//                           completion: completion)
+//        }
+//    }
 }
 
 
-extension MapDrawerViewController: PulleyDrawerViewControllerDelegate {
-    
-    func collapsedDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat
-    {
-        // For devices with a bottom safe area, we want to make our drawer taller. Your implementation may not want to do that. In that case, disregard the bottomSafeArea value.
-        return 68.0 + (pulleyViewController?.currentDisplayMode == .drawer ? bottomSafeArea : 0.0)
+extension MapDrawerViewController {
+    fileprivate func endEditing() {
+        view.endEditing(true)
+        searchBar.showsCancelButton = false
+        pullUpControllerMoveToVisiblePoint(pullUpControllerMiddleStickyPoints[0], animated: true, completion: nil)
+        isSearchMode = false
     }
     
-    func partialRevealDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat
-    {
-        // For devices with a bottom safe area, we want to make our drawer taller. Your implementation may not want to do that. In that case, disregard the bottomSafeArea value.
-        return 264.0 + (pulleyViewController?.currentDisplayMode == .drawer ? bottomSafeArea : 0.0)
+    fileprivate func startEditing() {
+        pulleyViewController?.setDrawerPosition(position: .open, animated: true)
+        
+        if let lastStickyPoint = pullUpControllerAllStickyPoints.last {
+            pullUpControllerMoveToVisiblePoint(lastStickyPoint, animated: true, completion: nil)
+        }
+        
+        searchBar.showsCancelButton = true
+        isSearchMode = true
     }
     
-    func supportedDrawerPositions() -> [PulleyPosition] {
-        return PulleyPosition.all // You can specify the drawer positions you support. This is the same as: [.open, .partiallyRevealed, .collapsed, .closed]
+    fileprivate func createHighlightedString(text: String, rangeValues: [NSValue]) -> NSAttributedString {
+        let attributes = [NSAttributedString.Key.backgroundColor: UIColor(named: "suggestionHighlight")! ]
+        let highlightedString = NSMutableAttributedString(string: text)
+        
+        let ranges = rangeValues.map { $0.rangeValue }
+        ranges.forEach { (range) in
+            highlightedString.addAttributes(attributes, range: range)
+        }
+        
+        return highlightedString
     }
     
-    // This function is called by Pulley anytime the size, drawer position, etc. changes. It's best to customize your VC UI based on the bottomSafeArea here (if needed). Note: You might also find the `pulleySafeAreaInsets` property on Pulley useful to get Pulley's current safe area insets in a backwards compatible (with iOS < 11) way. If you need this information for use in your layout, you can also access it directly by using `drawerDistanceFromBottom` at any time.
-    func drawerPositionDidChange(drawer: PulleyViewController, bottomSafeArea: CGFloat)
-    {
-        // We want to know about the safe area to customize our UI. Our UI customization logic is in the didSet for this variable.
-//        drawerBottomSafeArea = bottomSafeArea
+
+    fileprivate func search(for suggestedCompletion: MKLocalSearchCompletion, completionHandler: @escaping ([MKMapItem]?) -> Void) {
+        let searchRequest = MKLocalSearch.Request(completion: suggestedCompletion)
         
-        /*
-         Some explanation for what is happening here:
-         1. Our drawer UI needs some customization to look 'correct' on devices like the iPhone X, with a bottom safe area inset.
-         2. We only need this when it's in the 'collapsed' position, so we'll add some safe area when it's collapsed and remove it when it's not.
-         3. These changes are captured in an animation block (when necessary) by Pulley, so these changes will be animated along-side the drawer automatically.
-         */
-        if drawer.drawerPosition == .collapsed
-        {
-//            headerSectionHeightConstraint.constant = 68.0 + drawerBottomSafeArea
-        }
-        else
-        {
-//            headerSectionHeightConstraint.constant = 68.0
-        }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        // Handle tableview scrolling / searchbar editing
-        
-        tableView.isScrollEnabled = drawer.drawerPosition == .open || drawer.currentDisplayMode == .panel
-        
-        if drawer.drawerPosition != .open
-        {
-            searchBar.resignFirstResponder()
-        }
-        
-        if drawer.currentDisplayMode == .panel
-        {
-//            topSeparatorView.isHidden = drawer.drawerPosition == .collapsed
-//            bottomSeperatorView.isHidden = drawer.drawerPosition == .collapsed
-        }
-        else
-        {
-//            topSeparatorView.isHidden = false
-//            bottomSeperatorView.isHidden = true
+        localSearch = MKLocalSearch(request: searchRequest)
+        localSearch?.start { [weak self] (response, error) in
+            guard error == nil else {
+                self?.displaySearchError(error)
+                return
+            }
+            
+            completionHandler(response?.mapItems)
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
     
-    /// This function is called when the current drawer display mode changes. Make UI customizations here.
-    func drawerDisplayModeDidChange(drawer: PulleyViewController) {
-        
-        print("Drawer: \(drawer.currentDisplayMode)")
-//        gripperTopConstraint.isActive = drawer.currentDisplayMode == .drawer
+    private func displaySearchError(_ error: Error?) {
+        if let error = error as NSError?, let errorString = error.userInfo[NSLocalizedDescriptionKey] as? String {
+            let alertController = UIAlertController(title: "未找到相关地点", message: errorString, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "我知道了", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+        }
     }
 }
 
 extension MapDrawerViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        pulleyViewController?.setDrawerPosition(position: .open, animated: true)
+        startEditing()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchCompleter.queryFragment = searchText
+    }
+
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        endEditing()
     }
 }
 
-extension MapDrawerViewController: UITableViewDataSource {
+extension MapDrawerViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        if isSearchMode {
+            return completerResults.count
+        }
+        return recentAddress.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "SampleCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCell", for: indexPath)
+        
+        if isSearchMode {
+            let suggestion = completerResults[indexPath.row]
+            cell.textLabel?.attributedText = createHighlightedString(text: suggestion.title, rangeValues: suggestion.titleHighlightRanges)
+            cell.detailTextLabel?.attributedText = createHighlightedString(text: suggestion.subtitle, rangeValues: suggestion.subtitleHighlightRanges)
+        } else {
+            let address = recentAddress[indexPath.row]
+            cell.textLabel?.text = address.name
+            cell.detailTextLabel?.text = address.address
+        }
+        
+        return cell
     }
-}
 
-extension MapDrawerViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 81.0
@@ -142,13 +224,40 @@ extension MapDrawerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-//        let primaryContent = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PrimaryTransitionTargetViewController")
-        
-        pulleyViewController?.setDrawerPosition(position: .collapsed, animated: true)
-        
-//        pulleyViewController?.setPrimaryContentViewController(controller: primaryContent, animated: false)
+        if isSearchMode {
+            let suggestion = completerResults[indexPath.row]
+            searchBar.text = suggestion.title
+            search(for: suggestion) { [weak self] (places) in
+                if let coordinate = places?[0].placemark.coordinate {
+                    (self?.parent as? LocationController)?.zoom(to: coordinate)
+                    self?.endEditing()
+                }
+            }
+        } else {
+            let addr = recentAddress[indexPath.row]
+            (parent as? LocationController)?.zoom(to: addr.coordinate)
+            self.endEditing()
+        }
     }
 }
 
+extension MapDrawerViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        searchCompleter.queryFragment = searchController.searchBar.text ?? ""
+    }
+}
+
+extension MapDrawerViewController: MKLocalSearchCompleterDelegate {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        completerResults = completer.results
+        tableView.reloadData()
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        if let error = error as NSError? {
+            print("MKLocalSearchCompleter encountered an error: \(error.localizedDescription)")
+        }
+    }
+}
 
 

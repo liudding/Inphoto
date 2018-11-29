@@ -23,9 +23,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var livePhotoBadgeView: UIImageView!
-    @IBOutlet weak var resourcesIcon: UIImageView!
-    
     @IBOutlet weak var saveButtonItem: UIBarButtonItem!
+    
     fileprivate var imageRequestId: PHImageRequestID?
     fileprivate var editingInputRequestId: PHContentEditingInputRequestID?
     fileprivate let imageManager = PHCachingImageManager()
@@ -33,7 +32,6 @@ class DetailViewController: UIViewController {
     fileprivate var datetime: Date?
     fileprivate var location: CLLocation?
     
-    var properties: [String : Any]?
     var imageFile: ImageFile?
     var fileName: String?
     private var photoInfos: [PhotoInfo] = []
@@ -115,6 +113,13 @@ class DetailViewController: UIViewController {
             datetimeVC.originDatetime = asset.creationDate ?? Date()
             datetimeVC.delegate = self
         }
+        
+        if segue.identifier == R.segue.detailViewController.detail_Location.identifier {
+            let navi = segue.destination as! UINavigationController
+            let locationVC = navi.viewControllers.first! as! LocationController
+            locationVC.location = asset.location
+            locationVC.delegate = self
+        }
     }
 
     @IBAction func onTapSave(_ sender: Any) {
@@ -161,11 +166,6 @@ extension DetailViewController {
     
     func loadAssetResources() {
         resources = PHAssetResource.assetResources(for: asset)
-        if resources.count > 1 {
-            resourcesIcon.isHidden = false
-        } else {
-            resourcesIcon.isHidden = true
-        }
     }
     
     func loadThumbnail() {
@@ -416,7 +416,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.mapTableViewCell.identifier, for: indexPath) as! MapTableViewCell
         
-        cell.location = asset.location
+        cell.location = self.location
         
         return cell
     }
@@ -427,7 +427,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return [60, 300, 25][indexPath.section]
+        return [60, 200][indexPath.section]
     }
     
     
@@ -476,16 +476,18 @@ extension DetailViewController: PHPhotoLibraryChangeObserver {
 
 extension DetailViewController: DateFormViewControllerDelegate {
     func dateFormVC(didSelectDate selectedDate: Date?) {
-        
-        
-        
         if let newDate = selectedDate, datetime != selectedDate {
             datetime = newDate
             changePhotoDate(selectedDate!)
             
             tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
         }
-        
     }
-    
+}
+
+extension DetailViewController: LocationControllerDelegate {
+    func locationControllerVC(_ vc: LocationController, didSelect location: CLLocation) {
+        self.location = location
+        tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .automatic)
+    }
 }

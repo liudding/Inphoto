@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-         Armchair.appID(APP.appID)
+        Armchair.appID(APP.appID)
         
         PHPhotoLibrary.checkAuthorization { (authorized) in
             var viewController: UIViewController
