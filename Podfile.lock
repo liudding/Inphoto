@@ -8,7 +8,6 @@ PODS:
   - R.swift (5.0.0.alpha.2):
     - R.swift.Library (~> 5.0.0.alpha.2)
   - R.swift.Library (5.0.0.alpha.2)
-  - SwiftDate (5.0.13)
 
 DEPENDENCIES:
   - Armchair
@@ -18,7 +17,6 @@ DEPENDENCIES:
   - Pulley
   - PullUpController
   - R.swift (= 5.0.0.alpha.2)
-  - SwiftDate (~> 5.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -30,7 +28,6 @@ SPEC REPOS:
     - PullUpController
     - R.swift
     - R.swift.Library
-    - SwiftDate
 
 SPEC CHECKSUMS:
   Armchair: 2dd361337cf81937e73e8b9d48f9eda9a21d316c
@@ -41,8 +38,7 @@ SPEC CHECKSUMS:
   PullUpController: 55d372633d55345a209add771458962abcdfbbf9
   R.swift: 31fa1bd537fa81307815cc622122f33331f32174
   R.swift.Library: 3c21b823839bf5a6769dc7f96cb44479dab51b1b
-  SwiftDate: f4aea5fa9dee812485f34041121a4cbde01b0dee
 
-PODFILE CHECKSUM: 8ca5dead07a72ca7192e07ebef7d9e5ec6401e38
+PODFILE CHECKSUM: 5934472e26c940f52891cf829435f39324f65f8e
 
 COCOAPODS: 1.5.3

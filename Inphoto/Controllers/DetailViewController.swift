@@ -20,8 +20,6 @@ class DetailViewController: UIViewController {
         }
     }
     
-    weak var pageViewController: PageViewController!
-    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var livePhotoBadgeView: UIImageView!

@@ -169,19 +169,6 @@ class PhotoGridViewController: UICollectionViewController {
             }
         }
         
-        if let dest = segue.destination as? PageViewController {
-            
-            guard let cell = sender as? UICollectionViewCell else {
-                return
-            }
-            
-            let indexPath = collectionView!.indexPath(for: cell)!
-            
-            dest.fetchResult = fetchResult
-            dest.page = indexPath.item
-            
-        }
-        
         if let dest = segue.destination as? DetailViewController {
             
             guard let cell = sender as? UICollectionViewCell else {
@@ -191,8 +178,6 @@ class PhotoGridViewController: UICollectionViewController {
             let indexPath = collectionView!.indexPath(for: cell)!
             
             dest.asset = fetchResult.object(at: indexPath.item)
-//            dest.page = indexPath.item
-            
         }
     }
     

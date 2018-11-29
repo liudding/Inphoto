@@ -8,7 +8,6 @@
 
 import UIKit
 import Eureka
-import SwiftDate
 
 protocol DateFormViewControllerDelegate: NSObjectProtocol {
     func dateFormVC(didSelectDate selectedDate: Date?)
@@ -76,14 +75,19 @@ class DateFormViewController: FormViewController {
     private func updateFooterText(of section: Section) {
 
         let interval = newDate!.timeIntervalSinceReferenceDate - originDatetime.timeIntervalSinceReferenceDate
-        let strInterval = interval.toString {
-            $0.maximumUnitCount = 6
-            $0.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
-            $0.collapsesLargestUnit = true
-            $0.unitsStyle = .abbreviated
-        }
+
+        let formatter = DateComponentsFormatter()
+        formatter.includesApproximationPhrase = false
+        formatter.includesTimeRemainingPhrase = false
+        formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
+        formatter.collapsesLargestUnit = true
+        formatter.maximumUnitCount = 6
+        formatter.unitsStyle = .abbreviated
+        formatter.calendar = Calendar.autoupdatingCurrent
+
+        let formatedInterval = formatter.string(from: interval) ?? ""
         
-        section.footer?.title = "原始照片将调整：\(strInterval)"
+        section.footer?.title = "原始照片将调整：\(formatedInterval)"
         section.reload()
     }
 

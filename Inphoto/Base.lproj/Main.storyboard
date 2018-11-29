@@ -53,87 +53,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Msk-0H-5cj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="308" y="852"/>
-        </scene>
-        <!--Page View Controller-->
-        <scene sceneID="Sz7-kO-w73">
-            <objects>
-                <viewController id="ei1-vz-7gW" customClass="PageViewController" customModule="Inphoto" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bwf-s2-9BW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nZ-c2-ptb">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem title="标签" id="m6v-tM-QZw"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="sxv-D8-RvP"/>
-                                    <barButtonItem title="时间" id="JUR-eH-TM6">
-                                        <connections>
-                                            <action selector="onTapDate:" destination="ei1-vz-7gW" id="zvC-T7-HK1"/>
-                                            <segue destination="Qx8-Gb-vza" kind="popoverPresentation" identifier="Page_Date" popoverAnchorBarButtonItem="JUR-eH-TM6" id="x7K-fl-Hel">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Sqb-P7-7mu"/>
-                                    <barButtonItem title="位置" id="wP9-Rw-Pen">
-                                        <connections>
-                                            <action selector="onTapLocation:" destination="ei1-vz-7gW" id="ZM7-J4-3wE"/>
-                                            <segue destination="esI-Mn-6kK" kind="popoverPresentation" popoverAnchorBarButtonItem="wP9-Rw-Pen" id="3M3-FB-wpW">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="yyV-I8-tAY"/>
-                                    <barButtonItem title="删除" id="3ec-wE-Ffb"/>
-                                </items>
-                            </toolbar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="4nZ-c2-ptb" firstAttribute="leading" secondItem="8Tt-gv-7Dk" secondAttribute="leading" id="2kr-k2-C1u"/>
-                            <constraint firstItem="4nZ-c2-ptb" firstAttribute="trailing" secondItem="8Tt-gv-7Dk" secondAttribute="trailing" id="XXJ-8W-e9d"/>
-                            <constraint firstItem="4nZ-c2-ptb" firstAttribute="bottom" secondItem="8Tt-gv-7Dk" secondAttribute="bottom" id="g7N-UJ-MJU"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="8Tt-gv-7Dk"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="uS3-PC-5V4">
-                        <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="bYs-68-MSO">
-                            <rect key="frame" x="112.5" y="0.0" width="150" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JO8-Cs-pAI">
-                                    <rect key="frame" x="57.5" y="0.0" width="35.5" height="17"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RnN-sl-Ib1">
-                                    <rect key="frame" x="62" y="25" width="26.5" height="12"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstItem="JO8-Cs-pAI" firstAttribute="centerX" secondItem="bYs-68-MSO" secondAttribute="centerX" id="AX4-a2-bIB"/>
-                                <constraint firstItem="RnN-sl-Ib1" firstAttribute="top" secondItem="JO8-Cs-pAI" secondAttribute="bottom" constant="8" id="Prd-dc-0lu"/>
-                                <constraint firstItem="RnN-sl-Ib1" firstAttribute="centerX" secondItem="bYs-68-MSO" secondAttribute="centerX" id="nkQ-dL-oOt"/>
-                                <constraint firstItem="JO8-Cs-pAI" firstAttribute="top" secondItem="bYs-68-MSO" secondAttribute="top" id="oSx-Uh-ABC"/>
-                            </constraints>
-                        </view>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="dateLabel" destination="RnN-sl-Ib1" id="piC-s9-id2"/>
-                        <outlet property="locationLabel" destination="JO8-Cs-pAI" id="UYd-Qu-WZV"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mDR-6f-GVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1492" y="2"/>
+            <point key="canvasLocation" x="-151" y="851"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="euN-5i-AWj">
@@ -149,7 +69,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VCe-Mc-kuN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2176" y="856"/>
+            <point key="canvasLocation" x="2302" y="772"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rH1-AO-oyM">
@@ -291,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NrP-Mj-G7p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3034" y="856"/>
+            <point key="canvasLocation" x="3087" y="771"/>
         </scene>
         <!--相册-->
         <scene sceneID="Ito-lt-390">
@@ -366,7 +286,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QC4-fk-9Ag" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1263.2" y="851.42428785607206"/>
+            <point key="canvasLocation" x="580" y="851"/>
         </scene>
         <!--Title-->
         <scene sceneID="Clc-Ja-GvP">
@@ -522,7 +442,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDR-Mh-WnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2333.5999999999999" y="-1.3493253373313345"/>
+            <point key="canvasLocation" x="1492" y="2"/>
         </scene>
         <!--Metadata View Controller-->
         <scene sceneID="0Ti-ve-WWZ">
@@ -636,7 +556,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nsa-BR-FJQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3124" y="-1"/>
+            <point key="canvasLocation" x="2302" y="1"/>
         </scene>
         <!--Photo Grid View Controller-->
         <scene sceneID="5bz-D0-04q">
@@ -898,8 +818,4 @@
             <point key="canvasLocation" x="4326" y="1906"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="NaF-zM-nul"/>
-        <segue reference="cmC-NF-Xil"/>
-    </inferredMetricsTieBreakers>
 </document>

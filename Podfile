@@ -6,11 +6,7 @@ target 'Inphoto' do
   use_frameworks!
 
   # Pods for Inphoto
-  #  pod 'arek', '~> 2.0.2'    # 权限请求
-  #  pod 'SVProgressHUD', '2.2.5'
   pod 'R.swift', '5.0.0.alpha.2'
-  pod 'SwiftDate', '~> 5.0'
-  pod 'Pageboy', '~> 2.6'
   pod 'Eureka'
   pod 'Pulley'
   pod 'Armchair'
