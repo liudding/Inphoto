@@ -1,0 +1,48 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2uf-T7-CDN"; */
+"2uf-T7-CDN.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "3RF-nR-NNP"; */
+"3RF-nR-NNP.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "删除"; ObjectID = "3ec-wE-Ffb"; */
+"3ec-wE-Ffb.title" = "删除";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "BNk-fg-4AR"; */
+"BNk-fg-4AR.text" = "Label";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "HdM-dR-lBv"; */
+"HdM-dR-lBv.text" = "0";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "JO8-Cs-pAI"; */
+"JO8-Cs-pAI.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "时间"; ObjectID = "JUR-eH-TM6"; */
+"JUR-eH-TM6.title" = "时间";
+
+/* Class = "UIButton"; normalTitle = "所有照片"; ObjectID = "MjY-7L-Ntt"; */
+"MjY-7L-Ntt.normalTitle" = "所有照片";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "RnN-sl-Ib1"; */
+"RnN-sl-Ib1.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "VrT-sF-wdi"; */
+"VrT-sF-wdi.title" = "Root View Controller";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "faL-FG-fPd"; */
+"faL-FG-fPd.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "gQv-sr-YGj"; */
+"gQv-sr-YGj.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "相册授权"; ObjectID = "l4E-Yq-KRu"; */
+"l4E-Yq-KRu.normalTitle" = "相册授权";
+
+/* Class = "UIBarButtonItem"; title = "标签"; ObjectID = "m6v-tM-QZw"; */
+"m6v-tM-QZw.title" = "标签";
+
+/* Class = "UINavigationItem"; title = "相册"; ObjectID = "wMx-nU-6bw"; */
+"wMx-nU-6bw.title" = "相册";
+
+/* Class = "UIBarButtonItem"; title = "位置"; ObjectID = "wP9-Rw-Pen"; */
+"wP9-Rw-Pen.title" = "位置";

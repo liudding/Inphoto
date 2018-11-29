@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Photos
+import Armchair
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +17,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+         Armchair.appID(APP.appID)
+        
+        PHPhotoLibrary.checkAuthorization { (authorized) in
+            var viewController: UIViewController
+            if !authorized {
+                viewController = R.storyboard.welcome().instantiateInitialViewController()!
+            } else {
+                viewController = R.storyboard.main().instantiateInitialViewController()!
+            }
+            // 无效果，暂不明原因
+            UIApplication.shared.keyWindow?.rootViewController = viewController
+            UIApplication.shared.keyWindow?.makeKeyAndVisible()
+        }
+        
         return true
+    }
+    
+    @objc func photoLibarayAuthChanged() {
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
