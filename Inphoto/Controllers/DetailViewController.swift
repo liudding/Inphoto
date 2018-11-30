@@ -116,9 +116,9 @@ class DetailViewController: UIViewController {
         
         if segue.identifier == R.segue.detailViewController.detail_Location.identifier {
             let navi = segue.destination as! UINavigationController
-            let locationVC = navi.viewControllers.first! as! LocationController
-            locationVC.location = asset.location
-            locationVC.delegate = self
+            let locationVC = navi.viewControllers.first! as! LocationManageController
+            locationVC.location = location
+            locationVC.locationDelegate = self
         }
     }
 
@@ -485,8 +485,9 @@ extension DetailViewController: DateFormViewControllerDelegate {
     }
 }
 
-extension DetailViewController: LocationControllerDelegate {
-    func locationControllerVC(_ vc: LocationController, didSelect location: CLLocation) {
+
+extension DetailViewController: LocationManageControllerDelegate {
+    func locationControllerVC(_ vc: LocationManageController, didSelect location: CLLocation) {
         self.location = location
         tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .automatic)
     }

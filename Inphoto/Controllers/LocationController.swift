@@ -26,9 +26,9 @@ class LocationController: UIViewController {
     
     weak var delegate: LocationControllerDelegate?
     
-    private var pullupViewController: MapDrawerViewController {
-        let currentPullUpController = children.filter({ $0 is MapDrawerViewController }).first as? MapDrawerViewController
-        let pullUpController = currentPullUpController ?? R.storyboard.main.mapDrawerVC()
+    private var pullupViewController: MapPullupViewController {
+        let currentPullUpController = children.filter({ $0 is MapPullupViewController }).first as? MapPullupViewController
+        let pullUpController = currentPullUpController ?? R.storyboard.main.mapPullupVC()
         return pullUpController!
     }
     

@@ -12,6 +12,7 @@ target 'Inphoto' do
   pod 'Armchair'
   pod 'LicensesViewController'
   pod 'PullUpController'
+  pod 'Pulley'
 
   target 'InphotoTests' do
     inherit! :search_paths

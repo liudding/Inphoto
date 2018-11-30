@@ -10,13 +10,24 @@ import UIKit
 import MapKit
 import Pulley
 
+
 class MapPrimaryViewController: UIViewController {
+    
+    var location: CLLocation?
+    
+    fileprivate var coordinate: CLLocationCoordinate2D?
+    fileprivate var annotation = MKPointAnnotation()
     
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
      
+        if let _ = location {
+            zoom(to: location!.coordinate)
+        }
+        
+        mapView.addAnnotation(annotation)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,11 +41,17 @@ class MapPrimaryViewController: UIViewController {
         self.pulleyViewController?.displayMode = .automatic
     }
     
-    func zoom(to location: CLLocationCoordinate2D) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        let region = MKCoordinateRegion(center: location, span: span)
+    func zoom(to coordinate: CLLocationCoordinate2D) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.0045, longitudeDelta: 0.0045)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
         
         mapView.setRegion(region, animated: true)
+        
+        annotation.coordinate = coordinate
+        self.coordinate = coordinate
+        
+        let locationVC = pulleyViewController as! LocationManageController
+        locationVC.didSelect(coordinate: coordinate)
     }
 }
 
@@ -68,5 +85,9 @@ extension MapPrimaryViewController: PulleyPrimaryContentControllerDelegate {
 //            temperatureLabelBottomConstraint.constant = 268.0 + temperatureLabelBottomDistance
         }
     }
+}
+
+extension MapPrimaryViewController: MKMapViewDelegate {
+    
 }
 

@@ -38,6 +38,7 @@
 		35579D9D21AFAFA600E096AD /* MetadataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35579D9C21AFAFA600E096AD /* MetadataViewController.swift */; };
 		35579D9F21AFC6CA00E096AD /* MetadataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35579D9E21AFC6CA00E096AD /* MetadataCell.swift */; };
 		35579DA121AFD6D900E096AD /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35579DA021AFD6D900E096AD /* Address.swift */; };
+		35579DA321B0C15C00E096AD /* MapDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35579DA221B0C15C00E096AD /* MapDrawerViewController.swift */; };
 		357F9F3C21ABFAC100325212 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 357F9F3B21ABFAC100325212 /* PhotosUI.framework */; };
 		357F9F3E21ABFAC100325212 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 357F9F3D21ABFAC100325212 /* Photos.framework */; };
 		357F9F4121ABFAC100325212 /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F4021ABFAC100325212 /* PhotoEditingViewController.swift */; };
@@ -48,7 +49,7 @@
 		357F9F5221ACDBAC00325212 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F5121ACDBAC00325212 /* PhotoInfo.swift */; };
 		357F9F5521AD906100325212 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F5421AD906100325212 /* LocationController.swift */; };
 		357F9F6221AD9EB700325212 /* MapPrimaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F6121AD9EB700325212 /* MapPrimaryViewController.swift */; };
-		357F9F6421AD9ED600325212 /* MapDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F6321AD9ED600325212 /* MapDrawerViewController.swift */; };
+		357F9F6421AD9ED600325212 /* MapPullupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F6321AD9ED600325212 /* MapPullupViewController.swift */; };
 		357F9F6621ADA7F700325212 /* LocationManageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F6521ADA7F700325212 /* LocationManageController.swift */; };
 		35E23D6921AEEF57000C5582 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E23D6821AEEF57000C5582 /* ImageFile.swift */; };
 		35E23D6B21AEF09A000C5582 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E23D6A21AEF09A000C5582 /* Constant.swift */; };
@@ -149,6 +150,7 @@
 		35579D9C21AFAFA600E096AD /* MetadataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataViewController.swift; sourceTree = "<group>"; };
 		35579D9E21AFC6CA00E096AD /* MetadataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataCell.swift; sourceTree = "<group>"; };
 		35579DA021AFD6D900E096AD /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		35579DA221B0C15C00E096AD /* MapDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDrawerViewController.swift; sourceTree = "<group>"; };
 		357F9F3A21ABFAC000325212 /* inphotoExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = inphotoExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		357F9F3B21ABFAC100325212 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		357F9F3D21ABFAC100325212 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -159,7 +161,7 @@
 		357F9F5121ACDBAC00325212 /* PhotoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
 		357F9F5421AD906100325212 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		357F9F6121AD9EB700325212 /* MapPrimaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPrimaryViewController.swift; sourceTree = "<group>"; };
-		357F9F6321AD9ED600325212 /* MapDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDrawerViewController.swift; sourceTree = "<group>"; };
+		357F9F6321AD9ED600325212 /* MapPullupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPullupViewController.swift; sourceTree = "<group>"; };
 		357F9F6521ADA7F700325212 /* LocationManageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManageController.swift; sourceTree = "<group>"; };
 		35E23D6821AEEF57000C5582 /* ImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		35E23D6A21AEF09A000C5582 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -355,9 +357,10 @@
 				3547C45521AA6BE80038BAA3 /* AlbumViewController.swift */,
 				3547C45621AA6BE80038BAA3 /* PhotoGridViewController.swift */,
 				357F9F5421AD906100325212 /* LocationController.swift */,
+				357F9F6321AD9ED600325212 /* MapPullupViewController.swift */,
 				357F9F6521ADA7F700325212 /* LocationManageController.swift */,
 				357F9F6121AD9EB700325212 /* MapPrimaryViewController.swift */,
-				357F9F6321AD9ED600325212 /* MapDrawerViewController.swift */,
+				35579DA221B0C15C00E096AD /* MapDrawerViewController.swift */,
 				35579D9C21AFAFA600E096AD /* MetadataViewController.swift */,
 			);
 			path = Controllers;
@@ -643,7 +646,6 @@
 				"${BUILT_PRODUCTS_DIR}/Armchair/Armchair.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/LicensesViewController/LicensesViewController.framework",
-				"${BUILT_PRODUCTS_DIR}/Pageboy/Pageboy.framework",
 				"${BUILT_PRODUCTS_DIR}/PullUpController/PullUpController.framework",
 				"${BUILT_PRODUCTS_DIR}/Pulley/Pulley.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
@@ -653,7 +655,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Armchair.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LicensesViewController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pageboy.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PullUpController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pulley.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
@@ -773,7 +774,7 @@
 				3547C46321AA6BEF0038BAA3 /* PHPhotoLibrary+Extension.swift in Sources */,
 				3547C46221AA6BEF0038BAA3 /* PHAssetCollection+Extension.swift in Sources */,
 				357F9F6221AD9EB700325212 /* MapPrimaryViewController.swift in Sources */,
-				357F9F6421AD9ED600325212 /* MapDrawerViewController.swift in Sources */,
+				357F9F6421AD9ED600325212 /* MapPullupViewController.swift in Sources */,
 				35346AE721AAE43600E2605B /* DatetimePickerCell.swift in Sources */,
 				3547C45A21AA6BE80038BAA3 /* WelcomeViewController.swift in Sources */,
 				357F9F5521AD906100325212 /* LocationController.swift in Sources */,
@@ -782,6 +783,7 @@
 				35E23D6921AEEF57000C5582 /* ImageFile.swift in Sources */,
 				3547C44E21AA6BD50038BAA3 /* Album.swift in Sources */,
 				35E23D9621AEF5AE000C5582 /* SwiftWebVCActivitySafari.swift in Sources */,
+				35579DA321B0C15C00E096AD /* MapDrawerViewController.swift in Sources */,
 				357F9F6621ADA7F700325212 /* LocationManageController.swift in Sources */,
 				35E23D7621AEF316000C5582 /* FeedbackViewController.swift in Sources */,
 				35E23D7821AEF316000C5582 /* SettingsViewController.swift in Sources */,

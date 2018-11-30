@@ -8,10 +8,28 @@
 
 import UIKit
 import Pulley
+import CoreLocation
+
+
+protocol LocationManageControllerDelegate: NSObjectProtocol {
+    func locationControllerVC(_ vc: LocationManageController,  didSelect location: CLLocation)
+}
+
 
 class LocationManageController: PulleyViewController {
     
-//    @IBOutlet weak var primaryContainerView: UIView!
+    var location: CLLocation? {
+        didSet {
+            loadViewIfNeeded()
+            
+            let primaryVC = primaryContentViewController as! MapPrimaryViewController
+            primaryVC.location = location
+        }
+    }
+    
+    weak var locationDelegate: LocationManageControllerDelegate?
+    
+    var coordinate: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,5 +46,17 @@ class LocationManageController: PulleyViewController {
         }
     }
     @IBAction func onTapDone(_ sender: Any) {
+        if let coordinate = coordinate {
+            locationDelegate?.locationControllerVC(self, didSelect: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        }
+        
+        dismiss(animated: true) {
+            
+        }
+        
+    }
+    
+    func didSelect(coordinate: CLLocationCoordinate2D) {
+        self.coordinate = coordinate
     }
 }

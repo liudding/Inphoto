@@ -2,7 +2,6 @@ PODS:
   - Armchair (0.3.6)
   - Eureka (4.3.0)
   - LicensesViewController (0.7.0)
-  - Pageboy (2.6.1)
   - Pulley (2.6.2)
   - PullUpController (0.6.0)
   - R.swift (5.0.0.alpha.2):
@@ -13,7 +12,6 @@ DEPENDENCIES:
   - Armchair
   - Eureka
   - LicensesViewController
-  - Pageboy (~> 2.6)
   - Pulley
   - PullUpController
   - R.swift (= 5.0.0.alpha.2)
@@ -23,7 +21,6 @@ SPEC REPOS:
     - Armchair
     - Eureka
     - LicensesViewController
-    - Pageboy
     - Pulley
     - PullUpController
     - R.swift
@@ -33,12 +30,11 @@ SPEC CHECKSUMS:
   Armchair: 2dd361337cf81937e73e8b9d48f9eda9a21d316c
   Eureka: 6d711cb30ca333b4bc893110285a722ae3840114
   LicensesViewController: 2f7bba13b3cec7516d4990e41df297720fdbaaab
-  Pageboy: c2a25d1c280e9b622014b692626f1ff9298e0ad2
   Pulley: 2679a2b5a9714c5eb760b1fbb535d15c60e50fb4
   PullUpController: 55d372633d55345a209add771458962abcdfbbf9
   R.swift: 31fa1bd537fa81307815cc622122f33331f32174
   R.swift.Library: 3c21b823839bf5a6769dc7f96cb44479dab51b1b
 
-PODFILE CHECKSUM: 5934472e26c940f52891cf829435f39324f65f8e
+PODFILE CHECKSUM: 652f22d1da8ec7c84f3ad98dba7d2b707c43c003
 
 COCOAPODS: 1.5.3
