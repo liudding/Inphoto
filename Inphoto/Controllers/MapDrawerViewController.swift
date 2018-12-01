@@ -51,15 +51,7 @@ class MapDrawerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // You must wait until viewWillAppear -or- later in the view controller lifecycle in order to get a reference to Pulley via self.parent for customization.
-        
-        // UIFeedbackGenerator is only available iOS 10+. Since Pulley works back to iOS 9, the .feedbackGenerator property is "Any" and managed internally as a feedback generator.
-        if #available(iOS 10.0, *)
-        {
-            let feedbackGenerator = UISelectionFeedbackGenerator()
-            self.pulleyViewController?.feedbackGenerator = feedbackGenerator
-        }
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -140,8 +132,6 @@ extension MapDrawerViewController: PulleyDrawerViewControllerDelegate {
     
     /// This function is called when the current drawer display mode changes. Make UI customizations here.
     func drawerDisplayModeDidChange(drawer: PulleyViewController) {
-        
-        print("Drawer: \(drawer.currentDisplayMode)")
         gripperTopConstraint.isActive = drawer.currentDisplayMode == .drawer
     }
 }

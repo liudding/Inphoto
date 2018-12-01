@@ -13,12 +13,6 @@ import MapKit
 class MapTableViewCell: UITableViewCell {
     
     var location: CLLocation? {
-        willSet {
-            guard let _ = newValue, newValue != location else {
-                return
-            }
-        }
-        
         didSet {
             guard let _ = location else {
                 return
@@ -44,6 +38,8 @@ class MapTableViewCell: UITableViewCell {
         mapView.clipsToBounds = true
         
         mapView.addAnnotation(annotation)
+        
+        addressLabel.text = nil
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -57,8 +53,6 @@ class MapTableViewCell: UITableViewCell {
         super.prepareForReuse()
         
         self.addressLabel.text = nil
-//        annotation.
-
     }
 
 }
