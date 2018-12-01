@@ -152,7 +152,7 @@ extension MapDrawerViewController {
         view.endEditing(true)
         searchBar.showsCancelButton = false
         pulleyViewController?.setDrawerPosition(position: .collapsed, animated: true)
-        isSearchMode = false
+        
     }
     
     fileprivate func startEditing() {
@@ -219,6 +219,7 @@ extension MapDrawerViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         endEditing()
+        self.isSearchMode = false
     }
 }
 

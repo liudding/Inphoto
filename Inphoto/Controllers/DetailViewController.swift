@@ -56,7 +56,19 @@ class DetailViewController: UIViewController {
         
         PHPhotoLibrary.shared().register(self)
         
-        preparePhotoInfos()
+        if !isAssetTypeSupported() {
+            //            let alert = UIAlertController(title: "暂不支持的类型", message: "", preferredStyle: .alert)
+            //            alert.addAction(UIAlertAction(title: "确定", style: .default) { _ in
+            ////                self.navigationController?.popViewController(animated: true)
+            //            })
+            //            present(alert, animated: true)
+            //            return
+        }
+        
+        loadThumbnail()
+        loadPhoto()
+        
+//        preparePhotoInfos()
         
         if asset.mediaSubtypes == .photoLive {
             livePhotoBadgeView.image = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
@@ -65,22 +77,12 @@ class DetailViewController: UIViewController {
     
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
+        
+        cancelPhotoWorks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if !isAssetTypeSupported() {
-//            let alert = UIAlertController(title: "暂不支持的类型", message: "", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "确定", style: .default) { _ in
-////                self.navigationController?.popViewController(animated: true)
-//            })
-//            present(alert, animated: true)
-//            return
-        } else {
-            loadThumbnail()
-            loadPhoto()
-        }
     }
     
     
@@ -94,14 +96,8 @@ class DetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-//        if let imageReqID = imageRequestId, let inputReqId = editingInputRequestId {
-//            PHImageManager.default().cancelImageRequest(imageReqID)
-//            asset.cancelContentEditingInputRequest(inputReqId)
-//        }
-        
-        cancelLoadPhoto()
     }
+    
 
     
     // MARK: Navigation
@@ -128,35 +124,51 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController {
     
-    func preparePhotoInfos() {
+    fileprivate func updateView(with imageData: Data) {
+        let image = UIImage(data: imageData)!
+        self.imageView.isHidden = false
+        self.imageView.image = image
+        
+        self.imageFile = ImageFile(imageData: imageData)
+        self.preparePhotoInfos(with: imageData)
+//        self.tableView.reloadData()
+    }
+    
+    func preparePhotoInfos(with imageData: Data) {
         var infos = [PhotoInfo]()
-        if let date = asset.creationDate {
+        var indexPaths = [IndexPath]()
+        if let date = datetime {
             
             let strDate = DateFormatter.localizedString(from: date, dateStyle: .full, timeStyle: .none)
             let strTime = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
             let info = PhotoInfo(icon: R.image.calendar()!, mainInfo: strDate, subInfo: strTime)
             infos.append(info)
+            
+            indexPaths.append(IndexPath(row: 0, section: 0))
         }
         
         if fileName != nil, let imageFile = imageFile {
             let imageProperties = "\(imageFile.stringSize)    \(imageFile.pixelSize)"
             let info = PhotoInfo(icon: R.image.picture()!, mainInfo: fileName!, subInfo: imageProperties)
             infos.append(info)
+            indexPaths.append(IndexPath(row: 1, section: 0))
             
             if imageFile.lensInfo != "" {
                 let lensInfo = PhotoInfo(icon: R.image.cameralens()!, mainInfo: imageFile.cameraModel, subInfo: imageFile.lensInfo)
                 infos.append(lensInfo)
+                indexPaths.append(IndexPath(row: 2, section: 0))
             }
         }
         
         self.photoInfos = infos
+        
+        tableView.insertRows(at: indexPaths, with: .automatic)
     }
     
     func isAssetTypeSupported() -> Bool {
         if asset.mediaType != .image  {
             return false
         }
-        
 //        if asset.mediaSubtypes == .photoLive {
 //            return true
 //        }
@@ -195,7 +207,7 @@ extension DetailViewController {
             DispatchQueue.main.async {
                 guard let data = imageData else {
                     if let error = info?[PHImageErrorKey] as? Error  {
-                        print(error)
+                        self?.displayImageLoadingError(error)
                     }
                     return;
                 }
@@ -203,25 +215,19 @@ extension DetailViewController {
 //                let fileURL = info?["PHImageFileURLKey"] as? URL
 //                self?.fileName = fileURL?.lastPathComponent
                 
-                
-                self?.imageFile = ImageFile(imageData: data)
-                self?.preparePhotoInfos()
-                
-                
-                let image = UIImage(data: imageData!)!
-                self?.imageView.isHidden = false
-                self?.imageView.image = image
-
-                self?.tableView.reloadData()
+                self?.updateView(with: data)
             }
         })
     }
 
-    func cancelLoadPhoto() {
-        guard let requestId = imageRequestId else {
-            return
+    func cancelPhotoWorks() {
+        if let requestId = imageRequestId {
+            PHImageManager.default().cancelImageRequest(requestId)
         }
-        PHImageManager.default().cancelImageRequest(requestId)
+        
+        if let inputRequestId = editingInputRequestId {
+            asset.cancelContentEditingInputRequest(inputRequestId)
+        }
     }
     
     
@@ -282,7 +288,7 @@ extension DetailViewController {
         options.canHandleAdjustmentData = { ajustmentData in
             return false
         }
-        asset.requestContentEditingInput(with: options) {[weak self] (editingInput, info) in
+        editingInputRequestId = asset.requestContentEditingInput(with: options) {[weak self] (editingInput, info) in
             guard let input = editingInput, let imageURL = input.fullSizeImageURL else { return }
             
             print(input.mediaType == .image, input.mediaSubtypes.rawValue)
@@ -417,6 +423,13 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.mapTableViewCell.identifier, for: indexPath) as! MapTableViewCell
         
         cell.location = self.location
+        if let location = self.location {
+            Geo.default().reverseGeocodeLocation(location) { (address, error) in
+                if location == cell.location {
+                    cell.addressLabel.text = address
+                }
+            }
+        }
         
         return cell
     }
@@ -490,5 +503,21 @@ extension DetailViewController: LocationManageControllerDelegate {
     func locationControllerVC(_ vc: LocationManageController, didSelect location: CLLocation) {
         self.location = location
         tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .automatic)
+    }
+}
+
+
+extension DetailViewController {
+
+    private func displayImageLoadingError(_ error: Error?) {
+        if let error = error as NSError?, let errorString = error.userInfo[NSLocalizedDescriptionKey] as? String {
+            let alertController = UIAlertController(title: "获取照片出错", message: errorString, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "我知道了", style: .default){ [weak self] (action) in
+                self?.dismiss(animated: true, completion: {
+                })
+            })
+            
+            present(alertController, animated: true, completion: nil)
+        }
     }
 }

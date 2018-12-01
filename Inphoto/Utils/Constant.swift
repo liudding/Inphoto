@@ -8,6 +8,7 @@
 
 struct APP {
     static let appID = "test"
+    static let identifier = "com.eastree.inphoto"
 }
 
 

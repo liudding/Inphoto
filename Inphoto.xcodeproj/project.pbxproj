@@ -8,9 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		135760961340C135E26142A6 /* Pods_Inphoto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44DF353A4C3A380EF8274C3 /* Pods_Inphoto.framework */; };
+		35320DA721B198BC00C498FA /* Keyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DA621B198BC00C498FA /* Keyable.swift */; };
+		35320DA921B19C1F00C498FA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DA821B19C1F00C498FA /* String+Extension.swift */; };
+		35320DAB21B19EDE00C498FA /* CacheProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DAA21B19EDE00C498FA /* CacheProtocol.swift */; };
+		35320DAD21B1A03C00C498FA /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DAC21B1A03C00C498FA /* MemoryCache.swift */; };
+		35320DAF21B1A25500C498FA /* CacheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DAE21B1A25500C498FA /* CacheError.swift */; };
+		35320DB121B1A55700C498FA /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DB021B1A55700C498FA /* DiskCache.swift */; };
+		35320DB321B227B700C498FA /* DiskMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DB221B227B700C498FA /* DiskMemoryCache.swift */; };
+		35320DB521B22CEC00C498FA /* AsyncCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DB421B22CEC00C498FA /* AsyncCache.swift */; };
+		35320DB721B231D500C498FA /* Geo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DB621B231D500C498FA /* Geo.swift */; };
+		35320DB921B23CB800C498FA /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DB821B23CB800C498FA /* Transformer.swift */; };
 		35346AE721AAE43600E2605B /* DatetimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35346AE621AAE43600E2605B /* DatetimePickerCell.swift */; };
 		35346AE921AAEB2C00E2605B /* DateFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35346AE821AAEB2C00E2605B /* DateFormViewController.swift */; };
 		35346AEB21AAF30400E2605B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35346AEA21AAF30400E2605B /* Date+Extension.swift */; };
+		3544025C21B133D1007545A1 /* MKPlacemark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3544025B21B133D1007545A1 /* MKPlacemark+Extension.swift */; };
+		3544025E21B136C0007545A1 /* CLPlacemark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3544025D21B136C0007545A1 /* CLPlacemark+Extension.swift */; };
 		3547C40D21AA6AAF0038BAA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547C40C21AA6AAF0038BAA3 /* AppDelegate.swift */; };
 		3547C41221AA6AAF0038BAA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3547C41021AA6AAF0038BAA3 /* Main.storyboard */; };
 		3547C41421AA6AB10038BAA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3547C41321AA6AB10038BAA3 /* Assets.xcassets */; };
@@ -111,9 +123,21 @@
 /* Begin PBXFileReference section */
 		15B7C1CFB2A76D786B2E44C1 /* Pods_InphotoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InphotoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23E5A0375D8AFCA87BA5F750 /* Pods-InphotoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InphotoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InphotoUITests/Pods-InphotoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		35320DA621B198BC00C498FA /* Keyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyable.swift; sourceTree = "<group>"; };
+		35320DA821B19C1F00C498FA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		35320DAA21B19EDE00C498FA /* CacheProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheProtocol.swift; sourceTree = "<group>"; };
+		35320DAC21B1A03C00C498FA /* MemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
+		35320DAE21B1A25500C498FA /* CacheError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheError.swift; sourceTree = "<group>"; };
+		35320DB021B1A55700C498FA /* DiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
+		35320DB221B227B700C498FA /* DiskMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskMemoryCache.swift; sourceTree = "<group>"; };
+		35320DB421B22CEC00C498FA /* AsyncCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCache.swift; sourceTree = "<group>"; };
+		35320DB621B231D500C498FA /* Geo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geo.swift; sourceTree = "<group>"; };
+		35320DB821B23CB800C498FA /* Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
 		35346AE621AAE43600E2605B /* DatetimePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatetimePickerCell.swift; sourceTree = "<group>"; };
 		35346AE821AAEB2C00E2605B /* DateFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormViewController.swift; sourceTree = "<group>"; };
 		35346AEA21AAF30400E2605B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		3544025B21B133D1007545A1 /* MKPlacemark+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPlacemark+Extension.swift"; sourceTree = "<group>"; };
+		3544025D21B136C0007545A1 /* CLPlacemark+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+Extension.swift"; sourceTree = "<group>"; };
 		3547C40921AA6AAF0038BAA3 /* Inphoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inphoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3547C40C21AA6AAF0038BAA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3547C41121AA6AAF0038BAA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -246,6 +270,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		35320DA521B1989300C498FA /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				35320DA621B198BC00C498FA /* Keyable.swift */,
+				35320DB821B23CB800C498FA /* Transformer.swift */,
+				35320DA821B19C1F00C498FA /* String+Extension.swift */,
+				35320DAA21B19EDE00C498FA /* CacheProtocol.swift */,
+				35320DAC21B1A03C00C498FA /* MemoryCache.swift */,
+				35320DB021B1A55700C498FA /* DiskCache.swift */,
+				35320DB221B227B700C498FA /* DiskMemoryCache.swift */,
+				35320DB421B22CEC00C498FA /* AsyncCache.swift */,
+				35320DAE21B1A25500C498FA /* CacheError.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		3547C40021AA6AAF0038BAA3 = {
 			isa = PBXGroup;
 			children = (
@@ -314,10 +354,12 @@
 		3547C43A21AA6BD50038BAA3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				35320DA521B1989300C498FA /* Cache */,
 				35E23D9821AEF687000C5582 /* AppInfo.swift */,
 				35E23D6A21AEF09A000C5582 /* Constant.swift */,
 				3547C44F21AA6BDF0038BAA3 /* AlbumManager.swift */,
 				3547C43B21AA6BD50038BAA3 /* AssetManager.swift */,
+				35320DB621B231D500C498FA /* Geo.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -373,6 +415,8 @@
 				3547C46021AA6BEF0038BAA3 /* PHPhotoLibrary+Extension.swift */,
 				3547C46121AA6BEF0038BAA3 /* Dictionary+Extension.swift */,
 				35346AEA21AAF30400E2605B /* Date+Extension.swift */,
+				3544025B21B133D1007545A1 /* MKPlacemark+Extension.swift */,
+				3544025D21B136C0007545A1 /* CLPlacemark+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -765,18 +809,27 @@
 				35E23D9921AEF687000C5582 /* AppInfo.swift in Sources */,
 				3547C45C21AA6BE80038BAA3 /* PhotoGridViewController.swift in Sources */,
 				3547C46921AA71EE0038BAA3 /* R.generated.swift in Sources */,
+				35320DB521B22CEC00C498FA /* AsyncCache.swift in Sources */,
 				35579DA121AFD6D900E096AD /* Address.swift in Sources */,
 				35E23D6B21AEF09A000C5582 /* Constant.swift in Sources */,
+				35320DAF21B1A25500C498FA /* CacheError.swift in Sources */,
+				35320DAB21B19EDE00C498FA /* CacheProtocol.swift in Sources */,
+				35320DB321B227B700C498FA /* DiskMemoryCache.swift in Sources */,
 				35E23D7421AEF316000C5582 /* AboutTableViewController.swift in Sources */,
 				3547C44621AA6BD50038BAA3 /* AssetManager.swift in Sources */,
 				3547C45B21AA6BE80038BAA3 /* AlbumViewController.swift in Sources */,
 				35346AE921AAEB2C00E2605B /* DateFormViewController.swift in Sources */,
 				3547C46321AA6BEF0038BAA3 /* PHPhotoLibrary+Extension.swift in Sources */,
+				35320DA721B198BC00C498FA /* Keyable.swift in Sources */,
 				3547C46221AA6BEF0038BAA3 /* PHAssetCollection+Extension.swift in Sources */,
 				357F9F6221AD9EB700325212 /* MapPrimaryViewController.swift in Sources */,
+				35320DB121B1A55700C498FA /* DiskCache.swift in Sources */,
 				357F9F6421AD9ED600325212 /* MapPullupViewController.swift in Sources */,
+				3544025C21B133D1007545A1 /* MKPlacemark+Extension.swift in Sources */,
 				35346AE721AAE43600E2605B /* DatetimePickerCell.swift in Sources */,
 				3547C45A21AA6BE80038BAA3 /* WelcomeViewController.swift in Sources */,
+				35320DA921B19C1F00C498FA /* String+Extension.swift in Sources */,
+				3544025E21B136C0007545A1 /* CLPlacemark+Extension.swift in Sources */,
 				357F9F5521AD906100325212 /* LocationController.swift in Sources */,
 				35E23D9321AEF5AE000C5582 /* SwiftWebVCActivity.swift in Sources */,
 				3547C45021AA6BDF0038BAA3 /* AlbumManager.swift in Sources */,
@@ -785,12 +838,15 @@
 				35E23D9621AEF5AE000C5582 /* SwiftWebVCActivitySafari.swift in Sources */,
 				35579DA321B0C15C00E096AD /* MapDrawerViewController.swift in Sources */,
 				357F9F6621ADA7F700325212 /* LocationManageController.swift in Sources */,
+				35320DB921B23CB800C498FA /* Transformer.swift in Sources */,
+				35320DB721B231D500C498FA /* Geo.swift in Sources */,
 				35E23D7621AEF316000C5582 /* FeedbackViewController.swift in Sources */,
 				35E23D7821AEF316000C5582 /* SettingsViewController.swift in Sources */,
 				3547C44C21AA6BD50038BAA3 /* DetailSectionHeader.swift in Sources */,
 				3547C40D21AA6AAF0038BAA3 /* AppDelegate.swift in Sources */,
 				35579D9F21AFC6CA00E096AD /* MetadataCell.swift in Sources */,
 				35E23D9521AEF5AE000C5582 /* SwiftModalWebVC.swift in Sources */,
+				35320DAD21B1A03C00C498FA /* MemoryCache.swift in Sources */,
 				3547C44921AA6BD50038BAA3 /* AlbumTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
