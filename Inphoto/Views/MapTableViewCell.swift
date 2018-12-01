@@ -10,18 +10,20 @@ import UIKit
 import CoreLocation
 import MapKit
 
+
 class MapTableViewCell: UITableViewCell {
     
-    var location: CLLocation? {
+    var location: CLLocation?
+    
+    var coordinate: CLLocationCoordinate2D? {
         didSet {
-            guard let _ = location else {
+            guard let _ = coordinate else {
                 return
             }
-            
             // 1 degree = 111 km
-            let region = MKCoordinateRegion(center: location!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.0010, longitudeDelta: 0.0010)) 
+            let region = MKCoordinateRegion(center: coordinate!, span: MKCoordinateSpan(latitudeDelta: 0.0010, longitudeDelta: 0.0010))
             mapView.setRegion(region, animated: false)
-            annotation.coordinate = location!.coordinate
+            annotation.coordinate = coordinate!
         }
     }
 

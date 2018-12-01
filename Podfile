@@ -13,6 +13,8 @@ target 'Inphoto' do
   pod 'LicensesViewController'
   pod 'PullUpController'
   pod 'Pulley'
+  
+  pod 'JZLocationConverterSwift'
 
   target 'InphotoTests' do
     inherit! :search_paths

@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import PhotosUI
+import JZLocationConverterSwift
 
 class DetailViewController: UIViewController {
     
@@ -422,13 +423,16 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.mapTableViewCell.identifier, for: indexPath) as! MapTableViewCell
         
-        // 在地图上展示的位置，与“照片”中显示的位置不一致
         cell.location = self.location
         if let location = self.location {
             Geo.default().reverseGeocodeLocation(location) { (address, error) in
                 if location == cell.location {
                     cell.addressLabel.text = address
                 }
+            }
+            
+            JZLocationConverter.default.wgs84ToGcj02(location.coordinate) {(coordinate) in
+                cell.coordinate = coordinate
             }
         }
         

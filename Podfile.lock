@@ -1,6 +1,7 @@
 PODS:
   - Armchair (0.3.6)
   - Eureka (4.3.0)
+  - JZLocationConverterSwift (1.0.1)
   - LicensesViewController (0.7.0)
   - Pulley (2.6.2)
   - PullUpController (0.6.0)
@@ -11,6 +12,7 @@ PODS:
 DEPENDENCIES:
   - Armchair
   - Eureka
+  - JZLocationConverterSwift
   - LicensesViewController
   - Pulley
   - PullUpController
@@ -20,6 +22,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Armchair
     - Eureka
+    - JZLocationConverterSwift
     - LicensesViewController
     - Pulley
     - PullUpController
@@ -29,12 +32,13 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Armchair: 2dd361337cf81937e73e8b9d48f9eda9a21d316c
   Eureka: 6d711cb30ca333b4bc893110285a722ae3840114
+  JZLocationConverterSwift: 4c5107b9b1b5900e7d3bb719a7a1f78df7f3d4fc
   LicensesViewController: 2f7bba13b3cec7516d4990e41df297720fdbaaab
   Pulley: 2679a2b5a9714c5eb760b1fbb535d15c60e50fb4
   PullUpController: 55d372633d55345a209add771458962abcdfbbf9
   R.swift: 31fa1bd537fa81307815cc622122f33331f32174
   R.swift.Library: 3c21b823839bf5a6769dc7f96cb44479dab51b1b
 
-PODFILE CHECKSUM: 652f22d1da8ec7c84f3ad98dba7d2b707c43c003
+PODFILE CHECKSUM: 602fcb591bcac368e09ba4e035e8f2cb470b90bf
 
 COCOAPODS: 1.5.3

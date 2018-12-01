@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import Armchair
+import JZLocationConverterSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // 无效果，暂不明原因
             UIApplication.shared.keyWindow?.rootViewController = viewController
             UIApplication.shared.keyWindow?.makeKeyAndVisible()
+        }
+        
+        JZLocationConverter.start { (error) in
+            if let err = error {
+                print(err)
+            }
         }
         
         return true
