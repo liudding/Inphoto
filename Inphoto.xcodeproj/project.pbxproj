@@ -59,9 +59,7 @@
 		357F9F4D21AC01F700325212 /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3547C46121AA6BEF0038BAA3 /* Dictionary+Extension.swift */; };
 		357F9F5021AC045F00325212 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F4F21AC045F00325212 /* ImageProcessor.swift */; };
 		357F9F5221ACDBAC00325212 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F5121ACDBAC00325212 /* PhotoInfo.swift */; };
-		357F9F5521AD906100325212 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F5421AD906100325212 /* LocationController.swift */; };
 		357F9F6221AD9EB700325212 /* MapPrimaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F6121AD9EB700325212 /* MapPrimaryViewController.swift */; };
-		357F9F6421AD9ED600325212 /* MapPullupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F6321AD9ED600325212 /* MapPullupViewController.swift */; };
 		357F9F6621ADA7F700325212 /* LocationManageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357F9F6521ADA7F700325212 /* LocationManageController.swift */; };
 		35E23D6921AEEF57000C5582 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E23D6821AEEF57000C5582 /* ImageFile.swift */; };
 		35E23D6B21AEF09A000C5582 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E23D6A21AEF09A000C5582 /* Constant.swift */; };
@@ -183,9 +181,7 @@
 		357F9F4521ABFAC100325212 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		357F9F4F21AC045F00325212 /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		357F9F5121ACDBAC00325212 /* PhotoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
-		357F9F5421AD906100325212 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		357F9F6121AD9EB700325212 /* MapPrimaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPrimaryViewController.swift; sourceTree = "<group>"; };
-		357F9F6321AD9ED600325212 /* MapPullupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPullupViewController.swift; sourceTree = "<group>"; };
 		357F9F6521ADA7F700325212 /* LocationManageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManageController.swift; sourceTree = "<group>"; };
 		35E23D6821AEEF57000C5582 /* ImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		35E23D6A21AEF09A000C5582 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -398,8 +394,6 @@
 				3547C45421AA6BE80038BAA3 /* WelcomeViewController.swift */,
 				3547C45521AA6BE80038BAA3 /* AlbumViewController.swift */,
 				3547C45621AA6BE80038BAA3 /* PhotoGridViewController.swift */,
-				357F9F5421AD906100325212 /* LocationController.swift */,
-				357F9F6321AD9ED600325212 /* MapPullupViewController.swift */,
 				357F9F6521ADA7F700325212 /* LocationManageController.swift */,
 				357F9F6121AD9EB700325212 /* MapPrimaryViewController.swift */,
 				35579DA221B0C15C00E096AD /* MapDrawerViewController.swift */,
@@ -824,13 +818,11 @@
 				3547C46221AA6BEF0038BAA3 /* PHAssetCollection+Extension.swift in Sources */,
 				357F9F6221AD9EB700325212 /* MapPrimaryViewController.swift in Sources */,
 				35320DB121B1A55700C498FA /* DiskCache.swift in Sources */,
-				357F9F6421AD9ED600325212 /* MapPullupViewController.swift in Sources */,
 				3544025C21B133D1007545A1 /* MKPlacemark+Extension.swift in Sources */,
 				35346AE721AAE43600E2605B /* DatetimePickerCell.swift in Sources */,
 				3547C45A21AA6BE80038BAA3 /* WelcomeViewController.swift in Sources */,
 				35320DA921B19C1F00C498FA /* String+Extension.swift in Sources */,
 				3544025E21B136C0007545A1 /* CLPlacemark+Extension.swift in Sources */,
-				357F9F5521AD906100325212 /* LocationController.swift in Sources */,
 				35E23D9321AEF5AE000C5582 /* SwiftWebVCActivity.swift in Sources */,
 				3547C45021AA6BDF0038BAA3 /* AlbumManager.swift in Sources */,
 				35E23D6921AEEF57000C5582 /* ImageFile.swift in Sources */,
