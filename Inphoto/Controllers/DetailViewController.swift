@@ -317,7 +317,7 @@ extension DetailViewController {
             }, completionHandler: { (success, error) in
                 if success == false {
                     // 报错： The operation couldn’t be completed
-                    print(error, error?.localizedDescription)
+                    print(error?.localizedDescription as Any)
                 }
             })
         }
@@ -374,7 +374,7 @@ extension DetailViewController {
             
         }, completionHandler: { success, error in
             if !success {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
             }
         })
     }

@@ -24,7 +24,7 @@ class SwiftWebVCActivityChrome : SwiftWebVCActivity {
     }
     
     override func perform() {
-        let inputURL: URL! = URLToOpen as URL!
+        let inputURL = URLToOpen!
         let scheme: String! = inputURL.scheme
         
         // Replace the URL Scheme with the Chrome equivalent.
