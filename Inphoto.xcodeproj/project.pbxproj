@@ -18,6 +18,11 @@
 		35320DB521B22CEC00C498FA /* AsyncCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DB421B22CEC00C498FA /* AsyncCache.swift */; };
 		35320DB721B231D500C498FA /* Geo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DB621B231D500C498FA /* Geo.swift */; };
 		35320DB921B23CB800C498FA /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DB821B23CB800C498FA /* Transformer.swift */; };
+		35320DBB21B5004100C498FA /* ResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DBA21B5004100C498FA /* ResourceViewController.swift */; };
+		35320DBD21B5025300C498FA /* ResourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DBC21B5025300C498FA /* ResourceTableViewCell.swift */; };
+		35320DBF21B5080000C498FA /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DBE21B5080000C498FA /* Int+Extension.swift */; };
+		35320DC121B5155800C498FA /* CleanTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DC021B5155800C498FA /* CleanTemp.swift */; };
+		35320DC321B5266700C498FA /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35320DC221B5266700C498FA /* CLLocationCoordinate2D+Extension.swift */; };
 		35346AE721AAE43600E2605B /* DatetimePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35346AE621AAE43600E2605B /* DatetimePickerCell.swift */; };
 		35346AE921AAEB2C00E2605B /* DateFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35346AE821AAEB2C00E2605B /* DateFormViewController.swift */; };
 		35346AEB21AAF30400E2605B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35346AEA21AAF30400E2605B /* Date+Extension.swift */; };
@@ -131,6 +136,11 @@
 		35320DB421B22CEC00C498FA /* AsyncCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCache.swift; sourceTree = "<group>"; };
 		35320DB621B231D500C498FA /* Geo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geo.swift; sourceTree = "<group>"; };
 		35320DB821B23CB800C498FA /* Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
+		35320DBA21B5004100C498FA /* ResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewController.swift; sourceTree = "<group>"; };
+		35320DBC21B5025300C498FA /* ResourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTableViewCell.swift; sourceTree = "<group>"; };
+		35320DBE21B5080000C498FA /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		35320DC021B5155800C498FA /* CleanTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanTemp.swift; sourceTree = "<group>"; };
+		35320DC221B5266700C498FA /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		35346AE621AAE43600E2605B /* DatetimePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatetimePickerCell.swift; sourceTree = "<group>"; };
 		35346AE821AAEB2C00E2605B /* DateFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormViewController.swift; sourceTree = "<group>"; };
 		35346AEA21AAF30400E2605B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -356,6 +366,7 @@
 				3547C44F21AA6BDF0038BAA3 /* AlbumManager.swift */,
 				3547C43B21AA6BD50038BAA3 /* AssetManager.swift */,
 				35320DB621B231D500C498FA /* Geo.swift */,
+				35320DC021B5155800C498FA /* CleanTemp.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -370,6 +381,7 @@
 				3547C44221AA6BD50038BAA3 /* DetailSectionHeader.swift */,
 				3547C44321AA6BD50038BAA3 /* PhotoCollectionViewCell.swift */,
 				35346AE621AAE43600E2605B /* DatetimePickerCell.swift */,
+				35320DBC21B5025300C498FA /* ResourceTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -398,6 +410,7 @@
 				357F9F6121AD9EB700325212 /* MapPrimaryViewController.swift */,
 				35579DA221B0C15C00E096AD /* MapDrawerViewController.swift */,
 				35579D9C21AFAFA600E096AD /* MetadataViewController.swift */,
+				35320DBA21B5004100C498FA /* ResourceViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -405,12 +418,14 @@
 		3547C45E21AA6BEF0038BAA3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				35320DBE21B5080000C498FA /* Int+Extension.swift */,
 				3547C45F21AA6BEF0038BAA3 /* PHAssetCollection+Extension.swift */,
 				3547C46021AA6BEF0038BAA3 /* PHPhotoLibrary+Extension.swift */,
 				3547C46121AA6BEF0038BAA3 /* Dictionary+Extension.swift */,
 				35346AEA21AAF30400E2605B /* Date+Extension.swift */,
 				3544025B21B133D1007545A1 /* MKPlacemark+Extension.swift */,
 				3544025D21B136C0007545A1 /* CLPlacemark+Extension.swift */,
+				35320DC221B5266700C498FA /* CLLocationCoordinate2D+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -794,6 +809,7 @@
 				35E23D9121AEF5AE000C5582 /* SwiftWebVCActivityChrome.swift in Sources */,
 				357F9F5221ACDBAC00325212 /* PhotoInfo.swift in Sources */,
 				3547C46421AA6BEF0038BAA3 /* Dictionary+Extension.swift in Sources */,
+				35320DBD21B5025300C498FA /* ResourceTableViewCell.swift in Sources */,
 				35E23D7721AEF316000C5582 /* CreditLicenseViewController.swift in Sources */,
 				3547C44D21AA6BD50038BAA3 /* PhotoCollectionViewCell.swift in Sources */,
 				3547C44A21AA6BD50038BAA3 /* InfoTableViewCell.swift in Sources */,
@@ -809,9 +825,11 @@
 				35579DA121AFD6D900E096AD /* Address.swift in Sources */,
 				35E23D6B21AEF09A000C5582 /* Constant.swift in Sources */,
 				35320DAF21B1A25500C498FA /* CacheError.swift in Sources */,
+				35320DBB21B5004100C498FA /* ResourceViewController.swift in Sources */,
 				35320DAB21B19EDE00C498FA /* CacheProtocol.swift in Sources */,
 				35320DB321B227B700C498FA /* DiskMemoryCache.swift in Sources */,
 				35E23D7421AEF316000C5582 /* AboutTableViewController.swift in Sources */,
+				35320DC321B5266700C498FA /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				3547C44621AA6BD50038BAA3 /* AssetManager.swift in Sources */,
 				3547C45B21AA6BE80038BAA3 /* AlbumViewController.swift in Sources */,
 				35346AE921AAEB2C00E2605B /* DateFormViewController.swift in Sources */,
@@ -828,6 +846,8 @@
 				35E23D9321AEF5AE000C5582 /* SwiftWebVCActivity.swift in Sources */,
 				3547C45021AA6BDF0038BAA3 /* AlbumManager.swift in Sources */,
 				35E23D6921AEEF57000C5582 /* ImageFile.swift in Sources */,
+				35320DBF21B5080000C498FA /* Int+Extension.swift in Sources */,
+				35320DC121B5155800C498FA /* CleanTemp.swift in Sources */,
 				3547C44E21AA6BD50038BAA3 /* Album.swift in Sources */,
 				35E23D9621AEF5AE000C5582 /* SwiftWebVCActivitySafari.swift in Sources */,
 				35579DA321B0C15C00E096AD /* MapDrawerViewController.swift in Sources */,

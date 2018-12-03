@@ -139,7 +139,7 @@ extension MetadataViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MetadataCell", for: indexPath) as! MetadataCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.metadataCell.identifier, for: indexPath) as! MetadataCell
         
         let items = groupedMetadata[indexPath.section]["items"] as! [[String: Any]]
         let item = items[indexPath.row]

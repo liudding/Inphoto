@@ -41,20 +41,14 @@ class MapTableViewCell: UITableViewCell {
         
         mapView.addAnnotation(annotation)
         
-        addressLabel.text = nil
+        addressLabel.text = "无位置信息"
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-        
-    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.addressLabel.text = nil
+        self.addressLabel.text = "无位置信息"
     }
 
 }

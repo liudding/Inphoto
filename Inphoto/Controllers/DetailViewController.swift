@@ -18,6 +18,8 @@ class DetailViewController: UIViewController {
             datetime = asset.creationDate
             location = asset.location
             fileName = asset.value(forKey: "filename") as? String
+            
+            loadAssetResources()
         }
     }
     
@@ -51,6 +53,12 @@ class DetailViewController: UIViewController {
         return pullUpController!
     }
     
+    private var resourcesViewController: ResourceViewController {
+        let currentPullUpController = children.filter({ $0 is ResourceViewController }).first as? ResourceViewController
+        let pullUpController = currentPullUpController ?? R.storyboard.main.resourceVC()
+        return pullUpController!
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,18 +66,11 @@ class DetailViewController: UIViewController {
         PHPhotoLibrary.shared().register(self)
         
         if !isAssetTypeSupported() {
-            //            let alert = UIAlertController(title: "暂不支持的类型", message: "", preferredStyle: .alert)
-            //            alert.addAction(UIAlertAction(title: "确定", style: .default) { _ in
-            ////                self.navigationController?.popViewController(animated: true)
-            //            })
-            //            present(alert, animated: true)
-            //            return
+   
         }
         
         loadThumbnail()
         loadPhoto()
-        
-//        preparePhotoInfos()
         
         if asset.mediaSubtypes == .photoLive {
             livePhotoBadgeView.image = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
@@ -120,6 +121,7 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func onTapSave(_ sender: Any) {
+        showActionSheet()
     }
 }
 
@@ -132,7 +134,12 @@ extension DetailViewController {
         
         self.imageFile = ImageFile(imageData: imageData)
         self.preparePhotoInfos(with: imageData)
-//        self.tableView.reloadData()
+    }
+    
+    func formattedDatetime(_ date: Date) -> (String, String) {
+        let strDate = DateFormatter.localizedString(from: date, dateStyle: .full, timeStyle: .none)
+        let strTime = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
+        return (strDate, strTime)
     }
     
     func preparePhotoInfos(with imageData: Data) {
@@ -140,8 +147,9 @@ extension DetailViewController {
         var indexPaths = [IndexPath]()
         if let date = datetime {
             
-            let strDate = DateFormatter.localizedString(from: date, dateStyle: .full, timeStyle: .none)
-            let strTime = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
+//            let strDate = DateFormatter.localizedString(from: date, dateStyle: .full, timeStyle: .none)
+//            let strTime = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
+            let (strDate, strTime) = formattedDatetime(date)
             let info = PhotoInfo(icon: R.image.calendar()!, mainInfo: strDate, subInfo: strTime)
             infos.append(info)
             
@@ -170,10 +178,7 @@ extension DetailViewController {
         if asset.mediaType != .image  {
             return false
         }
-//        if asset.mediaSubtypes == .photoLive {
-//            return true
-//        }
-//
+
         return true
     }
     
@@ -202,7 +207,7 @@ extension DetailViewController {
             DispatchQueue.main.async {
             }
         }
-        // Failed to load image data for asset
+        
         imageRequestId = PHImageManager.default().requestImageData(for: asset, options: options, resultHandler: { [weak self] (imageData, dataUTI, orientation, info) in
             
             DispatchQueue.main.async {
@@ -231,68 +236,65 @@ extension DetailViewController {
         }
     }
     
-    
-    fileprivate func ajustImageViewHeight() {
-        let bounds = tableView.tableHeaderView?.bounds
-        let height = imageView.bounds.width * CGFloat(asset.pixelHeight) / CGFloat(asset.pixelWidth)
-        tableView.tableHeaderView?.bounds = CGRect(x: 0, y: 0, width: (bounds?.width)!, height: height)
+    private func saveNewMeta(shouldDeleteOld: Bool = true) {
+        let meta = assembleMeta()
         
-        self.tableView.setNeedsLayout()
-    }
-    
-    fileprivate func changePhotoDate(_ newDate: Date) {
+        let asset = self.asset!
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
-
-        let meta = [
-            (kCGImagePropertyExifDictionary as String): [
-                (kCGImagePropertyExifDateTimeOriginal as String): formatter.string(from: newDate)
-            ]
-        ]
-        
-        save(with: meta)
-    }
-    
-    fileprivate func editAssetResource(with newMeta: [String: Any]) {
-        let resources = PHAssetResource.assetResources(for: asset)
-        let first = resources.first
-        let fileURL = first?.value(forKey: "fileURL") as! URL
-        
-//        Metadata.updateImage(on: fileURL, to: fileURL, with: newMeta)
-//        for item in resources {
-//            print(item.value(forKey: "fileURL"))
-//        }
-        
-        let tempUrl = NSURL.fileURL(withPath: NSTemporaryDirectory() + fileURL.lastPathComponent)
-        ImageFile.saveImage(sourceURL: fileURL, destinationURL: tempUrl, with: newMeta)
-        
-        PHPhotoLibrary.shared().performChanges({
-            let request = PHAssetCreationRequest.forAsset()
-            let option = PHAssetResourceCreationOptions()
-            option.originalFilename = "test.png"
-            request.addResource(with: .photo, fileURL: tempUrl, options: option)
-        }) { (success, error) in
-            if success == true {
-                print("保存成功")
+        saveAsCopy(with: meta) { [weak self] (success, error) in
+            guard success else {
+                self?.displayErrorMessage(error: error)
+                return
+            }
+            if shouldDeleteOld {
+                PHPhotoLibrary.deleteAsset(asset) { [weak self] success, error in
+                    guard success else {
+                        self?.displayErrorMessage(error: error)
+                        return
+                    }
+                }
             }
         }
     }
     
-    // 如果是普通照片，则采用编辑
-    // 如果是 live photo，则使用原 live photo 的 resource 新建一个 live photo，以保证 live photo 不会变成静态照片
+    
+    fileprivate func assembleMeta() -> [String: Any] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+        let formattedTime = formatter.string(from: self.datetime!)
+        
+        
+        var meta: [String: Any] = [
+            (kCGImagePropertyExifDictionary as String): [
+                (kCGImagePropertyExifDateTimeOriginal as String): formattedTime
+            ]
+        ]
+        
+        if let coordinate = location?.coordinate  {
+            meta[(kCGImagePropertyGPSDictionary as String)] = [
+                (kCGImagePropertyGPSLatitude as String): abs(coordinate.latitude ),
+                (kCGImagePropertyGPSLatitudeRef as String): coordinate.latitudeRef,
+                
+                (kCGImagePropertyGPSLongitude as String): abs(coordinate.longitude),
+                (kCGImagePropertyGPSLongitudeRef as String): coordinate.longitudeRef,
+            ]
+        }
+        
+        return meta
+    }
+    
+    
+    // 使用原 asset 的 resource 新建一个 asset，以保证 live photo 不会变成静态照片
     
     /// save with changes that can be undo.
     fileprivate func save(with newMeta: [String: Any]) {
         let options = PHContentEditingInputRequestOptions()
         options.isNetworkAccessAllowed = true
         options.canHandleAdjustmentData = { ajustmentData in
-            return false
+            return true
         }
         editingInputRequestId = asset.requestContentEditingInput(with: options) {[weak self] (editingInput, info) in
             guard let input = editingInput, let imageURL = input.fullSizeImageURL else { return }
-            
-            print(input.mediaType == .image, input.mediaSubtypes.rawValue)
             
             let output = PHContentEditingOutput(contentEditingInput: input)
             
@@ -304,20 +306,12 @@ extension DetailViewController {
                 output.adjustmentData = adjustmentData
             }
             
-            ImageFile.saveImage(sourceURL: imageURL, destinationURL: output.renderedContentURL, with: newMeta)
-            
-//            let tempUrl = NSURL.fileURL(withPath: NSTemporaryDirectory() + imageURL.lastPathComponent)
-//            Metadata.updateImage(on: imageURL, to: tempUrl, with: newMeta)
-            
-//            let image = UIImage(contentsOfFile: tempUrl.path)!
-////            let image = input.displaySizeImage!
-//
-//            let renderedJPEGData = image.jpegData(compressionQuality: 1)
-//            try? renderedJPEGData?.write(to: output.renderedContentURL)
+            ImageFile.saveImage(sourceURL: imageURL, destinationURL: output.renderedContentURL, type: "public.jpeg", with: newMeta)
             
             
             PHPhotoLibrary.shared().performChanges({ [weak self] in
-                let request = PHAssetChangeRequest(for: (self?.asset)!)
+                let asset = (self?.asset)!
+                let request = PHAssetChangeRequest(for: asset)
                 request.contentEditingOutput = output
                 request.creationDate = self?.datetime
             }, completionHandler: { (success, error) in
@@ -328,28 +322,37 @@ extension DetailViewController {
             })
         }
     }
-    
 
-    
-    // update the first resource and keep the others
-    fileprivate func saveAsCopy() {
+    // 只更新第一个resource，保存为新的 asset
+    fileprivate func saveAsCopy(with newMeta: [String: Any], completionHandler: @escaping (Bool, Error?) -> Void) {
+        
+        let first = self.resources.first
+        let fileURL = first?.value(forKey: "fileURL") as! URL
+        let tempUrl = NSURL.fileURL(withPath: NSTemporaryDirectory() + fileURL.lastPathComponent)
+        ImageFile.saveImage(sourceURL: fileURL, destinationURL: tempUrl, type: "public.jpeg", with: newMeta)
         
         PHPhotoLibrary.shared().performChanges({ [weak self] in
             let creationRequest = PHAssetCreationRequest.forAsset()
             
+            let options = PHAssetResourceCreationOptions()
+            options.originalFilename = first?.originalFilename
+            options.uniformTypeIdentifier = first?.uniformTypeIdentifier
+            creationRequest.addResource(with: .photo, fileURL: tempUrl, options: options)
             
-            for resource in (self?.resources)! {
+            for (index, resource) in (self?.resources.enumerated())! {
+                if index == 0 {
+                    continue
+                }
                 let options = PHAssetResourceCreationOptions()
                 options.originalFilename = resource.originalFilename
                 options.uniformTypeIdentifier = resource.uniformTypeIdentifier
-                
+
                 let fileURL = resource.value(forKey: "fileURL") as! URL
                 creationRequest.addResource(with: resource.type, fileURL: fileURL, options: options)
             }
         }, completionHandler: { (success, error) -> Void in
-            if !success {
-                print(error?.localizedDescription)
-            }
+            CleanTemp.cleanFile(tempUrl.path)
+            completionHandler(success, error)
         })
     }
     
@@ -376,10 +379,20 @@ extension DetailViewController {
         })
     }
     
+
     private func addPullUpController() {
         let pullUpController = self.metadataViewController
         _ = pullUpController.view // call pullUpController.viewDidLoad()
         pullUpController.metadata = imageFile?.properties ?? [:]
+        addPullUpController(pullUpController,
+                            initialStickyPointOffset: pullUpController.initialPointOffset,
+                            animated: true)
+    }
+    
+    private func addResourceViewController() {
+        let pullUpController = self.resourcesViewController
+        pullUpController.loadViewIfNeeded()
+        pullUpController.asset = asset
         addPullUpController(pullUpController,
                             initialStickyPointOffset: pullUpController.initialPointOffset,
                             animated: true)
@@ -390,11 +403,7 @@ extension DetailViewController {
 extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
-        var sections = 1
-        if let _ = asset.location {
-            sections += 1
-        }
-        return sections
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -425,14 +434,15 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.location = self.location
         if let location = self.location {
-            Geo.default().reverseGeocodeLocation(location) { (address, error) in
-                if location == cell.location {
-                    cell.addressLabel.text = address
-                }
-            }
-            
             JZLocationConverter.default.wgs84ToGcj02(location.coordinate) {(coordinate) in
                 cell.coordinate = coordinate
+                
+                let gcjLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                Geo.default().reverseGeocodeLocation(gcjLocation) { (address, error) in
+                    if location == cell.location {
+                        cell.addressLabel.text = address
+                    }
+                }
             }
         }
         
@@ -456,7 +466,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 0 {
                 performSegue(withIdentifier: R.segue.detailViewController.detail_Date, sender: nil)
             } else if indexPath.row == 1 {
-               
+               addResourceViewController()
             } else if indexPath.row == 2 {
                 addPullUpController()
             }
@@ -496,8 +506,9 @@ extension DetailViewController: DateFormViewControllerDelegate {
     func dateFormVC(didSelectDate selectedDate: Date?) {
         if let newDate = selectedDate, datetime != selectedDate {
             datetime = newDate
-            changePhotoDate(selectedDate!)
-            
+            let (strDate, strTime) = formattedDatetime(newDate)
+            photoInfos[0].mainInfo = strDate
+            photoInfos[0].subInfo = strTime
             tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
         }
     }
@@ -507,6 +518,7 @@ extension DetailViewController: DateFormViewControllerDelegate {
 extension DetailViewController: LocationManageControllerDelegate {
     func locationControllerVC(_ vc: LocationManageController, didSelect location: CLLocation) {
         self.location = location
+        print("Location", location.coordinate)
         tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .automatic)
     }
 }
@@ -525,4 +537,31 @@ extension DetailViewController {
             present(alertController, animated: true, completion: nil)
         }
     }
+    
+    private func displayErrorMessage(title: String = "出错了", error: Error?) {
+        if let error = error as NSError?, let errorString = error.userInfo[NSLocalizedDescriptionKey] as? String {
+            let alertController = UIAlertController(title: title, message: errorString, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "我知道了", style: .default){ (action) in
+            })
+            
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    private func showActionSheet() {
+        let actionSheet = UIAlertController(title: "保存照片", message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "保存同时删除旧照片", style: .default){ [weak self](action) in
+            self?.saveNewMeta(shouldDeleteOld: true)
+        })
+        
+        actionSheet.addAction(UIAlertAction(title: "另存为新照片", style: .default){ [weak self](action) in
+            self?.saveNewMeta(shouldDeleteOld: false)
+        })
+        
+        actionSheet.addAction(UIAlertAction(title: "取消", style: .cancel))
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    
 }
