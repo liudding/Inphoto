@@ -26,6 +26,7 @@ class MapPrimaryViewController: UIViewController {
     fileprivate var annotation = MKPointAnnotation()
     
     @IBOutlet weak var mapView: MKMapView!
+    private var longPressCatched: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +72,21 @@ class MapPrimaryViewController: UIViewController {
     }
     
     @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            return
+        }
+        
+        if sender.state == .ended {
+            longPressCatched = false
+            return
+        }
+        
+        if longPressCatched {
+            return
+        }
+        
+        longPressCatched = true
+        
         let point = sender.location(in: mapView)
         let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
         
@@ -128,3 +144,7 @@ extension MapPrimaryViewController: MKMapViewDelegate {
     }
 }
 
+
+extension MapPrimaryViewController: UIGestureRecognizerDelegate {
+    
+}

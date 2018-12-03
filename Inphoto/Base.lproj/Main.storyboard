@@ -719,6 +719,7 @@
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="amG-so-fM1">
                     <connections>
                         <action selector="onLongPress:" destination="uzJ-3X-Q48" id="NVY-mE-EGM"/>
+                        <outlet property="delegate" destination="uzJ-3X-Q48" id="dWN-wv-Pc3"/>
                     </connections>
                 </pongPressGestureRecognizer>
                 <tapGestureRecognizer id="iYF-x5-2Te">
