@@ -22,7 +22,8 @@ extension String {
             }
         }
         
-        let md5 = digestData.base64EncodedString()
+        
+        let md5 = digestData.map { String(format: "%02hhx", $0) }.joined()
         return md5
     }
 }

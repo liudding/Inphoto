@@ -22,7 +22,6 @@ class DiskCache<K: Keyable, V: Transformer>: CacheProtocol {
     
     func set(_ value: V, for key: K) throws {
         let path = pathForKey(key)
-        print(path)
         
         let data = try value.toData()
         
@@ -62,6 +61,7 @@ extension DiskCache {
     }
     
     fileprivate func pathForKey(_ key: K) -> String {
-        return (cachePath as NSString).appendingPathComponent(key.toString().md5String())
+        let path = (cachePath as NSString).appendingPathComponent(key.toString().md5String())
+        return path
     }
 }

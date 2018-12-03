@@ -50,6 +50,8 @@ class Geo {
 }
 
 extension CLLocation: Keyable {
-    
+    public func toString() -> String {
+        return "\(String(describing: self.coordinate))"
+    }
 }
 
