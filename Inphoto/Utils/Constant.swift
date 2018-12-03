@@ -19,7 +19,7 @@ struct InAppPurchase {
 
 struct Constant {
     static let tucaoURL = "https://support.qq.com/product/34464"
-    static let contactEmail = ""
+    static let contactEmail = "liuding.ld@foxmail.com"
 }
 
 struct PhotoConstant {

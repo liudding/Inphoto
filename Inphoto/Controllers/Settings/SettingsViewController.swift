@@ -24,7 +24,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.section == 0 && indexPath.row == 2 { // 联系我们
+        if indexPath.section == 0 && indexPath.row == 1 { // 联系我们
             sendEmail()
         }
         else if indexPath.section == 1 {
@@ -68,19 +68,18 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         
         //设置邮件地址、主题及正文
         mailComposeVC.setToRecipients([Constant.contactEmail])
-        mailComposeVC.setSubject("<邮件主题>")
-        mailComposeVC.setMessageBody("<邮件正文>", isHTML: false)
+        mailComposeVC.setSubject("意见与建议")
         
 //        let deviceName = UIDevice.current.name
         let systemVersion = UIDevice.current.systemVersion
         let deviceModel = UIDevice.current.model
-        let deviceUUID = UIDevice.current.identifierForVendor?.uuidString ?? ""
+//        let deviceUUID = UIDevice.current.identifierForVendor?.uuidString ?? ""
         let version = AppInfo.version ?? ""
 
         let infos = """
+                    \n\n\n\n\n
                     系统版本：\(systemVersion)
                     设备型号：\(deviceModel)
-                    UUID： \(deviceUUID)
                     应用版本： \(version)
                     """
         mailComposeVC.setMessageBody(infos, isHTML: false)
