@@ -9,11 +9,18 @@
 import UIKit
 import MapKit
 import Pulley
+import JZLocationConverterSwift
 
 
 class MapPrimaryViewController: UIViewController {
     
-    var location: CLLocation?
+    var location: CLLocation? {
+        didSet {
+            if let _ = location {
+                zoom(to: location!.coordinate)
+            }
+        }
+    }
     
     fileprivate var coordinate: CLLocationCoordinate2D?
     fileprivate var annotation = MKPointAnnotation()
@@ -22,36 +29,62 @@ class MapPrimaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-        if let _ = location {
-            zoom(to: location!.coordinate)
-        }
         
         mapView.addAnnotation(annotation)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Customize Pulley in viewWillAppear, as the view controller's viewDidLoad will run *before* Pulley's and some changes may be overwritten.
-        // Uncomment if you want to change the visual effect style to dark. Note: The rest of the sample app's UI isn't made for dark theme. This just shows you how to do it.
-        // drawer.drawerBackgroundVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        
-        // We want the 'side panel' layout in landscape iPhone / iPad, so we set this to 'automatic'. The default is 'bottomDrawer' for compatibility with older Pulley versions.
+
         self.pulleyViewController?.displayMode = .automatic
     }
+
     
-    func zoom(to coordinate: CLLocationCoordinate2D) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.0045, longitudeDelta: 0.0045)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
+    func zoom(to wgsCoordinate: CLLocationCoordinate2D, changeSpan: Bool = true) {
+        JZLocationConverter.default.wgs84ToGcj02(wgsCoordinate) { [weak self] (coordinate) in
+            if changeSpan {
+                let span = MKCoordinateSpan(latitudeDelta: 0.0045, longitudeDelta: 0.0045)
+                let region = MKCoordinateRegion(center: coordinate, span: span)
+                self?.mapView.setRegion(region, animated: true)
+            } else {
+                self?.mapView.setCenter(coordinate, animated: true)
+            }
+            self?.annotation.coordinate = coordinate
+        }
+    }
+    
+    func didSelect(coordinate: CLLocationCoordinate2D, changeSpan: Bool = true) {
+        JZLocationConverter.default.gcj02ToWgs84(coordinate) { [weak self](wgsCoor) in
+            self?.coordinate = wgsCoor
+            let locationVC = self?.pulleyViewController as! LocationManageController
+            locationVC.didSelect(coordinate: wgsCoor)
+            
+            self?.zoom(to: wgsCoor, changeSpan: changeSpan)
+        }
+    }
+    
+    @IBAction func onTapInfo(_ sender: Any) {
         
-        mapView.setRegion(region, animated: true)
+    }
+    
+    @IBAction func onTapRevert(_ sender: Any) {
+    }
+    
+    @IBAction func onLongPress(_ sender: UILongPressGestureRecognizer) {
+        let point = sender.location(in: mapView)
+        let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
         
-        annotation.coordinate = coordinate
-        self.coordinate = coordinate
+        didSelect(coordinate: coordinate, changeSpan: false)
+    }
+   
+    @IBAction func onTapMap(_ sender: UITapGestureRecognizer) {
         
-        let locationVC = pulleyViewController as! LocationManageController
-        locationVC.didSelect(coordinate: coordinate)
+    }
+}
+
+extension MapPrimaryViewController {
+    fileprivate func switchMapType(_ type: UInt) {
+        mapView.mapType = MKMapType(rawValue: type) ?? .standard
     }
 }
 
@@ -88,6 +121,10 @@ extension MapPrimaryViewController: PulleyPrimaryContentControllerDelegate {
 }
 
 extension MapPrimaryViewController: MKMapViewDelegate {
-    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
+        if newState == .ending {
+            didSelect(coordinate: view.annotation!.coordinate)
+        }
+    }
 }
 

@@ -562,15 +562,54 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IFJ-aR-L7I">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="303"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="uzJ-3X-Q48" id="EsI-TZ-fcT"/>
+                                    <outletCollection property="gestureRecognizers" destination="amG-so-fM1" appends="YES" id="IpZ-w5-la0"/>
+                                    <outletCollection property="gestureRecognizers" destination="iYF-x5-2Te" appends="YES" id="pL2-rF-tmJ"/>
                                 </connections>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LC1-bg-oBa">
+                                <rect key="frame" x="315" y="20" width="44" height="74"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvX-aS-u1a">
+                                        <rect key="frame" x="11" y="10" width="22" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="B91-c2-aQy"/>
+                                            <constraint firstAttribute="width" constant="22" id="nAi-PF-oHc"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="onTapInfo:" destination="uzJ-3X-Q48" eventType="touchUpInside" id="ZXC-rU-EVG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMl-Zo-UGv">
+                                        <rect key="frame" x="11" y="42" width="22" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="PpW-HI-8PQ"/>
+                                            <constraint firstAttribute="width" constant="22" id="fiu-p7-80N"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="onTapRevert:" destination="uzJ-3X-Q48" eventType="touchUpInside" id="AVL-ao-VPU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="fvX-aS-u1a" firstAttribute="centerX" secondItem="LC1-bg-oBa" secondAttribute="centerX" id="0Qd-Fx-z9w"/>
+                                    <constraint firstAttribute="width" constant="44" id="G8u-Pp-JfM"/>
+                                    <constraint firstAttribute="bottom" secondItem="nMl-Zo-UGv" secondAttribute="bottom" constant="10" id="HxV-fC-Qo7"/>
+                                    <constraint firstItem="fvX-aS-u1a" firstAttribute="top" secondItem="LC1-bg-oBa" secondAttribute="top" constant="10" id="NO7-jt-ABy"/>
+                                    <constraint firstItem="nMl-Zo-UGv" firstAttribute="top" secondItem="fvX-aS-u1a" secondAttribute="bottom" constant="10" id="bOt-N6-Bm5"/>
+                                    <constraint firstItem="nMl-Zo-UGv" firstAttribute="centerX" secondItem="LC1-bg-oBa" secondAttribute="centerX" id="zlY-yi-2ts"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="LC1-bg-oBa" firstAttribute="top" secondItem="5gw-6r-Hjg" secondAttribute="top" constant="20" id="4dN-1v-Rb7"/>
                             <constraint firstItem="IFJ-aR-L7I" firstAttribute="top" secondItem="5gw-6r-Hjg" secondAttribute="top" id="DE0-uX-h0j"/>
                             <constraint firstAttribute="bottom" secondItem="IFJ-aR-L7I" secondAttribute="bottom" id="QPe-6J-1pm"/>
+                            <constraint firstItem="5gw-6r-Hjg" firstAttribute="trailing" secondItem="LC1-bg-oBa" secondAttribute="trailing" constant="16" id="dfK-Sx-qWb"/>
                             <constraint firstItem="IFJ-aR-L7I" firstAttribute="leading" secondItem="5gw-6r-Hjg" secondAttribute="leading" id="eqM-jI-pkv"/>
                             <constraint firstItem="IFJ-aR-L7I" firstAttribute="trailing" secondItem="5gw-6r-Hjg" secondAttribute="trailing" id="tNH-AE-90A"/>
                         </constraints>
@@ -581,6 +620,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pY-oD-oG5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="amG-so-fM1">
+                    <connections>
+                        <action selector="onLongPress:" destination="uzJ-3X-Q48" id="NVY-mE-EGM"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <tapGestureRecognizer id="iYF-x5-2Te">
+                    <connections>
+                        <action selector="onTapMap:" destination="uzJ-3X-Q48" id="VJQ-zk-67c"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4351" y="1739"/>
         </scene>

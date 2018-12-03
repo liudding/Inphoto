@@ -255,13 +255,13 @@ extension MapDrawerViewController: UITableViewDataSource, UITableViewDelegate {
             searchBar.text = suggestion.title
             search(for: suggestion) { [weak self] (places) in
                 if let coordinate = places?[0].placemark.coordinate {
-                    primaryVC.zoom(to: coordinate)
+                    primaryVC.didSelect(coordinate: coordinate, changeSpan: true)
                     self?.endEditing()
                 }
             }
         } else {
             let addr = recentAddress[indexPath.row]
-            primaryVC.zoom(to: addr.coordinate)
+            primaryVC.didSelect(coordinate: addr.coordinate, changeSpan: true)
             self.endEditing()
         }
         
